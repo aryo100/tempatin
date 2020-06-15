@@ -35,9 +35,22 @@ class RoomController extends Controller
     {
         $room=Room::all();
         $room_category=RoomCategory::all();
+        if(request()->segment(1)=='api'){
+            if($room){
+                return response()->json([
+                    'data'=> $room,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }else{
         // $provinsi=RajaOngkir::Provinsi()->all();
         // $kota=RajaOngkir::Kota()->all();
-        return view('merchant/room', compact('room','room_category'));
+            return view('merchant/room', compact('room','room_category'));
+        }
     }
 
     /**
@@ -171,6 +184,19 @@ class RoomController extends Controller
      */
     public function edit($id)
     {
+        $room=Room::find($id);
+        if(request()->segment(1)=='api'){
+            if($room){
+                return response()->json([
+                    'data'=> $room,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         $room_category=RoomCategory::all();
         $facility_category=FacilityCategory::all();
         $setup=Setup::all();
@@ -179,7 +205,6 @@ class RoomController extends Controller
         $building=Building::where('user_id',Auth::user()->id_user)->where('status_tempat','publish')->get();
         $form=Form::where('user_id',Auth::user()->id_user)->where('status_formulir','publish')->get();
         
-        $room=Room::find($id);
         $category_detail = CategoryDetail::where('room_id',$id)->get();
         // echo json_encode($category_detail);
         $setup_detail = SetupDetail::where('room_id',$id)->get();

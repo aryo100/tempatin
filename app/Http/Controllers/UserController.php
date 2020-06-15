@@ -16,7 +16,21 @@ class UserController extends Controller
     public function index()
     {
         $user=User::all();
-        return view('master/user', compact('user'));
+        
+        if(request()->segment(1)=='api'){
+            if($user){
+                return response()->json([
+                    'data'=> $user,
+                    'error' => false
+                ]);
+            }else{ 
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }else{
+            return view('master/user', compact('user'));
+        }
     }
 
     /**
@@ -100,8 +114,21 @@ class UserController extends Controller
         //     $gambar_setup = $file->move('setup',$file->getClientOriginalName());
         //     $user->gambar_setup = $gambar_setup;
         // }
-        $user->save();
-        return redirect()->back()->with('success', 'user telah berhasil diubah');
+    $user->save();
+    if(request()->segment(1)=='api'){
+        if($user){
+            return response()->json([
+                'data'=> $user,
+                'error' => false
+            ]);
+        }else{
+            return response()->json([
+                'error' => true
+            ]);
+        }
+    }else{
+            return redirect()->back()->with('success', 'user telah berhasil diubah');
+        }
     }
 
     /**

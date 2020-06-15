@@ -69,12 +69,10 @@
 															{{$item->nama_bangunan}}
 														</td>
 														<td>
-															@foreach(json_decode($item->building_type_id) as $pic_id)
-																@foreach($building_type as $tipe)
-																	@if($tipe->id_building_type==$pic_id)
-																	<span class="label label-sm label-info">{{$tipe->nama_tipe}}</span>
-																	@endif
-																@endforeach
+															@foreach($building_type as $tipe)
+																@if($tipe->id_building_type==$item->building_type_id)
+																<span class="label label-sm label-info">{{$tipe->nama_tipe}}</span>
+																@endif
 															@endforeach
 														</td>
 														<td>

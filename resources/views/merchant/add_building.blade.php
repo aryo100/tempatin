@@ -105,7 +105,7 @@
 												<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Kategori Bangunan </label>
 
 												<div class="col-xs-12 col-sm-9">
-													<select multiple="multiple" id="form-field-tipe" name="type[]" class="select2" data-placeholder="Click to Choose...">
+													<select id="form-field-tipe" name="type[]" class="select2" data-placeholder="Click to Choose...">
 													@foreach($building_type as $item)	
 														<option value="{{$item->id_building_type}}">{{$item->nama_tipe}}</option>
 													@endforeach

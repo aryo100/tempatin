@@ -21,3 +21,11 @@ Route::get('kota/{id}', 'BuildingController@api_kota');
 Route::get('form/detail/{id}', 'FormController@api_form_detail');
 Route::get('package/detail/{id}', 'RoomController@api_package_detail');
 
+Route::post('login', 'Auth\LoginController@signin');
+Route::post('register', 'Auth\RegisterController@register');
+
+Route::get('users', 'UserController@index');
+Route::post('user/edit/{id}', 'UserController@update');
+
+Route::get('rooms', 'RoomController@index');
+Route::get('room/{id}', 'RoomController@edit');

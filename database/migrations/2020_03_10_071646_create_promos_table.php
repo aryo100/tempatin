@@ -18,12 +18,17 @@ class CreatePromosTable extends Migration
             $table->integer('room_id');
             $table->integer('user_id');
             $table->string('gambar_promo');
-            $table->string('kode');
+            $table->string('nama_promo');
             $table->integer('diskon');
-            $table->integer('used_times');
+            $table->integer('nominal');
+            $table->integer('batas_durasi_per_jam');
+            $table->integer('kuota');
+            $table->string('deskripsi');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('status_ter_ruangan');
+            $table->string('role_id');
+            $table->string('room_or_building_id');
+            $table->string('status_penyebaran');
             $table->timestamps();
         });
     }

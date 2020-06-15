@@ -72,4 +72,24 @@ class RegisterController extends Controller
             'status_user'=>'approved',
         ]);
     }
+
+    public function register(Request $request){
+        $user = User::create([
+            'nama_user' => $request['nama'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'role_id' => 1,
+            'status_user'=>'approved',
+        ]);
+        if($user){
+            return response()->json([
+                'data'=> $user,
+                'error' => false
+            ]);
+        }else{
+            return response()->json([
+                'error' => true
+            ]);
+        }
+    }
 }

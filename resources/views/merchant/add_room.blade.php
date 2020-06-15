@@ -518,9 +518,9 @@
 		<script src="{{ asset('assets/js/markdown.min.js') }}"></script>
 		<script src="{{ asset('assets/js/bootstrap-markdown.min.js') }}"></script>
 		<script src="{{ asset('assets/js/jquery.hotkeys.index.min.js') }}"></script>
-		<script src="{{ asset('assets/js/bootstrap-wysiwyg.min.js') }}"></script>
 		<script src="{{ asset('assets/js/bootbox.js') }}"></script>
 		
+		<script src="{{ asset('assets/js/bootstrap-wysiwyg.min.js') }}"></script>
 		<script src="{{ asset('assets/js/jquery.bootstrap-duallistbox.min.js') }}"></script>
 		<script src="{{ asset('assets/js/jquery.raty.min.js') }}"></script>
 		<script src="{{ asset('assets/js/bootstrap-multiselect.min.js') }}"></script>
