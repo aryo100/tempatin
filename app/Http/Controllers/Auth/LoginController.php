@@ -47,18 +47,13 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
             $user->generateToken();
-            if(request()->segment(2)=='api'){
-                return response()->json([
-                        'error' => 'berhasil!!'
-                    ]);
+            if(Auth::user()->role_id==0){ //admin master
+                    $this->redirectTo = 'master/dashboard';
+                    return redirect($this->redirectTo);
+            }elseif(Auth::user()->role_id==1){ //admin merchant
+                    $this->redirectTo = 'merchant/dashboard';
+                    return redirect($this->redirectTo);
             }
-            // if(Auth::user()->role_id==0){ //admin master
-            //         $this->redirectTo = 'master/dashboard';
-            //         return redirect($this->redirectTo);
-            // }elseif(Auth::user()->role_id==1){ //admin merchant
-            //         $this->redirectTo = 'merchant/dashboard';
-            //         return redirect($this->redirectTo);
-            // }
         }else{
             // return response()->json([
             //     'error' => 'Error!!'

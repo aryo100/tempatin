@@ -31,7 +31,7 @@ class Room extends Model
     
     public function promo()
     {
-        return $this->belongsToMany('App\User','App\Promo','room_id','user_id');
+        return $this->belongsToMany('App\User','App\Promo','room_or_building_id','user_id');
     }
     
     public function package()

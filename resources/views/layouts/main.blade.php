@@ -547,7 +547,7 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="{{ Request::is('merchant/room')||Request::is('merchant/building')||Request::is('merchant/facility/category')||Request::is('merchant/room/setup')||Request::is('merchant/form') ? 'active open' : ''}}">
+					<li class="{{ Request::is('merchant/room')||Request::is('merchant/promo')||Request::is('merchant/building')||Request::is('merchant/facility/category')||Request::is('merchant/room/setup')||Request::is('merchant/form') ? 'active open' : ''}}">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> Kelola Tempat </span>
@@ -570,6 +570,14 @@
 								<a href="{{url('merchant/room')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Kelola Ruangan
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="{{ Request::is('merchant/promo') ? 'active open' : ''}}">
+								<a href="{{url('merchant/promo')}}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Kelola Promo
 								</a>
 
 								<b class="arrow"></b>

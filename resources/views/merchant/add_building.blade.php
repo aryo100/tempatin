@@ -78,8 +78,7 @@
 																$('#form-field-kota').trigger("chosen:updated");
 															}
 														});
-														var des=@json($building->building_type_id);
-														des=JSON.parse(des.replace(/&quot;/g,'"'));
+														var des='{{$building->building_type_id}}';
 														$('#form-field-kota').val('{{$building->kota}}');
 														$('#form-field-kota').trigger("chosen:updated");
 														$('#form-field-provinsi').val('{{$building->provinsi}}');
@@ -105,7 +104,7 @@
 												<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Kategori Bangunan </label>
 
 												<div class="col-xs-12 col-sm-9">
-													<select id="form-field-tipe" name="type[]" class="select2" data-placeholder="Click to Choose...">
+													<select id="form-field-tipe" name="tipe" class="select2" data-placeholder="Click to Choose...">
 													@foreach($building_type as $item)	
 														<option value="{{$item->id_building_type}}">{{$item->nama_tipe}}</option>
 													@endforeach

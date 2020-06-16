@@ -77,7 +77,7 @@ class BuildingController extends Controller
         
             Building::create([
                 'user_id'=>Auth::user()->id_user,
-                'building_type_id'=>json_encode($request['type']),
+                'building_type_id'=>$request['tipe'],
                 'nama_bangunan'=>$request['nama_bangunan'],
                 'jumlah_lantai'=>$request['jumlah_lantai'],
                 'deskripsi'=>$request['deskripsi'],
@@ -146,7 +146,7 @@ class BuildingController extends Controller
                 $building->foto_bangunan=json_encode($images);
             }
         
-            $building->building_type_id=json_encode($request['type']);
+            $building->building_type_id=$request['tipe'];
             $building->nama_bangunan=$request['nama_bangunan'];
             $building->jumlah_lantai=$request['jumlah_lantai'];
             $building->deskripsi=$request['deskripsi'];

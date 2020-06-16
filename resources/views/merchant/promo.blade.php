@@ -44,7 +44,9 @@
 														</th>
 														<th>Nama Promo</th>
 														<th>Banner Promo</th>
-														<th>Penggunaan</th>
+														<th>Kuota</th>
+														<th>Minimum Penyewaan</th>
+														<th>Promo berlaku di</th>
 														<th>Tanggal Promo</th>
 														<th>
 															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
@@ -68,7 +70,9 @@
 															{{$item->nama_promo}}
 														</td>
 														<td><img src="{{asset($item->gambar_promo)}}" style="width:60px;" alt=""></td>
-														<td>{{$item->used_times}}</td>
+														<td>{{$item->kuota}}</td>
+														<td>{{$item->batas_durasi_per_jam}}</td>
+														<td>@if($item->status_penyebaran==1) semua bangunan @elseif($item->status_penyebaran==2) semua ruangan @elseif($item->status_penyebaran==3) bangunan tertentu @elseif($item->status_penyebaran==4) ruangan tertentu @endif</td>
 														<td>{{$item->start_date.' - '.$item->end_date}}</td>
 														<td>{{$item->updated_at}}</td>
 														<td>
@@ -117,15 +121,27 @@
                                                             </div>
                                                             <script>
                                                                 $("#ubah-promo-{{$item->id_promo}}").click(function(){
+																	if(@json($item->gambar_promo)){
                                                                     var file="{{asset(str_replace('\\', '/', $item->gambar_promo))}}";
-                                                                    $('#modal-tambah-promo input[type=file]')
-                                                                    .ace_file_input('show_file_list', [
-                                                                        {type: 'image', name: 'Banner Promo', path: file}
-                                                                    ]);
+																		$('#modal-tambah-promo input[type=file]')
+																		.ace_file_input('show_file_list', [
+																			{type: 'image', name: 'Banner Promo', path: file}
+																		]);
+																	}
                                                                     $('h4').text('Ubah Promo Ruangan');
                                                                     $('form').removeAttr('action');
                                                                     $('form').attr('action', '{{route("up.promo",$item->id_promo)}}');
                                                                     $('#form-field-nama').val('{{$item->nama_promo}}');
+                                                                    $('#form-field-nominal').val('{{$item->nominal}}');
+																	$('#editor1').html(@json($item->deskripsi));
+                                                                    $('#form-field-kuota').val('{{$item->kuota}}');
+                                                                    $('#form-field-durasi').val('{{$item->batas_durasi_per_jam}}');
+                                                                    // $('#tanggal_promo').val('{{date_format(date_create($item->start_date),"m/d/Y H:i A")." - ".date_format(date_create($item->end_date),"m/d/Y H:i A")}}');
+																	$('#tanggal_promo').data('daterangepicker').setStartDate('{{date_format(date_create($item->start_date),"m/d/Y H:i A")}}');
+																	$('#tanggal_promo').data('daterangepicker').setEndDate('{{date_format(date_create($item->end_date),"m/d/Y H:i A")}}');
+
+                                                                    $('#status').val('{{$item->status_penyebaran}}');
+																	$('#status').trigger("chosen:updated");
                                                                 });
                                                             </script>
 														</td>
@@ -142,6 +158,11 @@
                                                 $('form').attr('action', '{{route("create.promo")}}');
                                                 $('form').trigger("reset");
                                                 $('input[type=file]').ace_file_input('reset_input');
+												$('#editor1').html('');
+												$('#status').val('');
+												$('#status').trigger("chosen:updated");
+												$('#tanggal_promo').data('daterangepicker').setStartDate(new Date());
+												$('#tanggal_promo').data('daterangepicker').setEndDate(new Date());
                                             });
                                         </script>
 
@@ -173,7 +194,7 @@
 																					<i class="fa fa-calendar bigger-110"></i>
 																				</span>
 
-																				<input class="form-control" type="text" name="date-range-picker" id="id-date-range-picker-1" />
+																				<input class="form-control" type="text" name="tanggal_promo" id="tanggal_promo" id="id-date-range-picker-1" />
 																			</div>
 																		</div>
                                                                     </div>
@@ -219,19 +240,30 @@
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-4">
                                                                     <div class="form-group">
-                                                                        <label for="form-field-used">Kuota</label>
+                                                                        <label for="form-field-kuota">Kuota</label>
 
                                                                         <div>
                                                                             <input name="kuota" placeholder="" value="" type="number" id="form-field-kuota" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xs-12 col-sm-4">
+                                                                <div class="col-xs-12 col-sm-8">
+                                                                    <div class="form-group">
+                                                                        <label for="form-field-durasi">Minimum Durasi Penyewaan</label>
+
+                                                                        <div>
+                                                                            <input name="batas_durasi_per_jam" placeholder="per jam" value="" type="number" id="form-field-durasi" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+															</div>
+															<div class="row">
+                                                                <div class="col-xs-12 col-sm-5">
                                                                     <div class="form-group">
                                                                         <label for="form-field-status">Berlaku untuk</label>
 
                                                                         <div>
-																			<select id="status" name="status" class="select2" data-placeholder="Click to Choose...">
+																			<select id="status" name="status_penyebaran" class="select2" data-placeholder="Click to Choose...">
 																				<option value="1">Semua Bangunan</option>
 																				<option value="2">Semua Ruangan</option>
 																				<option value="3">Bangunan Tertentu</option>
@@ -241,8 +273,6 @@
 																				$('#status').on('change', function(){
 																					$('#pilih-bangunan').hide();
 																					$('#pilih-ruangan').hide();
-																					alert('bisa = '+$(this).val());
-
 																					if($(this).val()==3){
 																						$('#pilih-bangunan').show();
 																					}
@@ -254,15 +284,15 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-															</div>
-															<div class="row">
                                                                 <div id="pilih-bangunan" style="display:none;" class="col-xs-12 col-sm-4">
                                                                     <div class="form-group">
                                                                         <label for="form-field-status">Bangunan</label>
 
                                                                         <div>
-																			<select multiple="" id="status" name="status[]" class="select2" data-placeholder="Click to Choose...">
-																			
+																			<select multiple="" id="status" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
+																			@foreach($building as $item)	
+																				<option value="{{$item->id_building}}">{{$item->nama_bangunan}}</option>
+																			@endforeach
 																			</select>
                                                                         </div>
                                                                     </div>
@@ -272,8 +302,10 @@
                                                                         <label for="form-field-status">Ruangan</label>
 
                                                                         <div>
-																			<select multiple="" id="status" name="status[]" class="select2" data-placeholder="Click to Choose...">
-																			
+																			<select multiple="" id="status" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
+																			@foreach($room as $item)	
+																				<option value="{{$item->id_room}}">{{$item->nama_ruangan}}</option>
+																			@endforeach
 																			</select>
                                                                         </div>
                                                                     </div>
@@ -347,7 +379,7 @@
 					bAutoWidth: false,
 					"aoColumns": [
 					  { "bSortable": false },
-					  null, null,null,null,null,
+					  null, null,null,null,null,null,null,
 					  { "bSortable": false }
 					],
 					"aaSorting": [],
@@ -872,7 +904,7 @@
 			
 			
 				//to translate the daterange picker, please copy the "examples/daterange-fr.js" contents here before initialization
-				$('input[name=date-range-picker]').daterangepicker({
+				$('#tanggal_promo').daterangepicker({
 					'applyClass' : 'btn-sm btn-success',
 					'cancelClass' : 'btn-sm btn-default',
 					timePicker: true,
