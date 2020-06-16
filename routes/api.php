@@ -26,6 +26,7 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('token', 'UserController@showToken');
 Route::get('users', 'UserController@index');
+Route::get('user/{id}', 'UserController@show');
 Route::post('user/edit/{id}', 'UserController@update');
 
 Route::get('rooms', 'RoomController@index');
