@@ -19,6 +19,18 @@ class FormController extends Controller
     {
         $form=Form::all();
         $form_detail=FormDetail::all();
+        if(request()->segment(1)=='api'){
+            if($form){
+                return response()->json([
+                    'data'=> $form,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         $user=User::where('role_id',1)->get();
         return view('master/merchant_form', compact('form','user','form_detail'));
     }

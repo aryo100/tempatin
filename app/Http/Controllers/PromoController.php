@@ -20,6 +20,18 @@ class PromoController extends Controller
     {
         $promo=Promo::all();
         $room=Room::all();
+        if(request()->segment(1)=='api'){
+            if($promo){
+                return response()->json([
+                    'data'=> $promo,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         return view('merchant/promo', compact('promo','room'));
     }
 

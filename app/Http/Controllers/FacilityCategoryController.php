@@ -17,6 +17,18 @@ class FacilityCategoryController extends Controller
     public function index()
     {
         $facility_category=FacilityCategory::all();
+        if(request()->segment(1)=='api'){
+            if($facility_category){
+                return response()->json([
+                    'data'=> $facility_category,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         return view('master/facility_category', compact('facility_category'));
     }
 

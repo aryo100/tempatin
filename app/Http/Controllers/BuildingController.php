@@ -21,6 +21,18 @@ class BuildingController extends Controller
         $building_type=BuildingType::all();
         $provinsi=RajaOngkir::Provinsi()->all();
         $kota=RajaOngkir::Kota()->all();
+        if(request()->segment(1)=='api'){
+            if($building){
+                return response()->json([
+                    'data'=> $building,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         return view('merchant/building', compact('building','building_type','provinsi','kota'));
     }
 

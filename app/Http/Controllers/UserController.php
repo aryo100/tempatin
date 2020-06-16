@@ -13,6 +13,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function showToken() {
+        echo csrf_token(); 
+  
+    }
+
     public function index()
     {
         $user=User::all();

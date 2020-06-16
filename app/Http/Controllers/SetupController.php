@@ -17,6 +17,18 @@ class SetupController extends Controller
     public function index()
     {
         $room_setup=Setup::all();
+        if(request()->segment(1)=='api'){
+            if($room_setup){
+                return response()->json([
+                    'data'=> $room_setup,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         return view('master/room_setup', compact('room_setup'));
     }
 

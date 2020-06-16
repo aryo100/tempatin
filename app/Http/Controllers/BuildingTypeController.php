@@ -16,6 +16,18 @@ class BuildingTypeController extends Controller
     public function index()
     {
         $building_type=BuildingType::all();
+        if(request()->segment(1)=='api'){
+            if($building_type){
+                return response()->json([
+                    'data'=> $building_type,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         return view('master/building_type', compact('building_type'));
     }
 

@@ -24,8 +24,27 @@ Route::get('package/detail/{id}', 'RoomController@api_package_detail');
 Route::post('login', 'Auth\LoginController@signin');
 Route::post('register', 'Auth\RegisterController@register');
 
+Route::get('token', 'UserController@showToken');
 Route::get('users', 'UserController@index');
 Route::post('user/edit/{id}', 'UserController@update');
 
 Route::get('rooms', 'RoomController@index');
 Route::get('room/{id}', 'RoomController@edit');
+
+Route::get('room/categories', 'RoomCategoryController@index');
+
+Route::get('room/setups', 'SetupController@index');
+
+Route::get('facility/categories', 'FacilityCategoryController@index');
+
+Route::get('building/type', 'BuildingTypeController@index');
+
+Route::get('packages', 'PackageController@index');
+
+Route::get('forms', 'FormController@index');
+
+Route::get('buildings', 'BuildingController@index');
+
+Route::get('promo', 'PromoController@index');
+
+// Route::get('schedule', 'ScheduleController@index');

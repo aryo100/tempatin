@@ -17,6 +17,18 @@ class RoomCategoryController extends Controller
     public function index()
     {
         $room_category=RoomCategory::all();
+        if(request()->segment(1)=='api'){
+            if($room_category){
+                return response()->json([
+                    'data'=> $room_category,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         return view('master/room_category', compact('room_category'));
     }
 

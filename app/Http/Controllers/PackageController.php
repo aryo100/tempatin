@@ -17,6 +17,18 @@ class PackageController extends Controller
     public function index()
     {
         $package=Package::all();
+        if(request()->segment(1)=='api'){
+            if($package){
+                return response()->json([
+                    'data'=> $package,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         return view('master/package', compact('package'));
     }
 
