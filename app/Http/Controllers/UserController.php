@@ -57,8 +57,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try{
+            $file = $request->file('foto_profile');
+            $foto_profile="";
+            if($file){
+            $foto_profile = $file->move('foto',$file->getClientOriginalName());
+            }
             $data=$request->all();
             User::create([
+                'foto_profile' => $foto_profile,
                 'nama_user' => $data['nama'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
@@ -117,33 +123,35 @@ class UserController extends Controller
     {
         $user = User::find($id);
         
+        $file = $request->file('foto_profile');
+        if($file){
+            $foto_profile = $file->move('foto',$file->getClientOriginalName());
+            $user->foto_profile = $foto_profile;
+        }
         $user->nama_user = $request->post('nama');
         $user->email = $request->post('email');
         if($request->post('password')){
             $user->password = Hash::make($request->post('password'));
         }
-        $user->role_id = $request->post('role_id');
-        $user->status_user = $request->post('status_user');
-        // $file = $request->file('gambar_setup');
-        // if($file){
-        //     $gambar_setup = $file->move('setup',$file->getClientOriginalName());
-        //     $user->gambar_setup = $gambar_setup;
-        // }
-    $user->save();
-    if(request()->segment(1)=='api'){
-        if($user){
-            return response()->json([
-                'data'=> $user,
-                'error' => false
-            ]);
+        if(request()->segment(1)!='api'){
+            $user->role_id = $request->post('role_id');
+            $user->status_user = $request->post('status_user');
+        }
+        $user->save();
+        if(request()->segment(1)=='api'){
+            if($user){
+                return response()->json([
+                    'data'=> $user,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
         }else{
-            return response()->json([
-                'error' => true
-            ]);
-        }
-    }else{
-            return redirect()->back()->with('success', 'user telah berhasil diubah');
-        }
+                return redirect()->back()->with('success', 'user telah berhasil diubah');
+            }
     }
 
     /**
@@ -158,7 +166,7 @@ class UserController extends Controller
             $user = User::find($id);
             $user->delete();
 
-            return redirect()->back()->with('success', 'setup ruangan telah berhasil dihapus');
+            return redirect()->back()->with('success', 'user telah berhasil dihapus');
         }catch(Exception $e) {
             return response()->json([
                 'error' => true,

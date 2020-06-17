@@ -20,7 +20,7 @@
 									<div class="col-xs-12">
 
 										<div class="clearfix">
-                                            <div class="pull-left"><a id="tambah-setup" href="#modal-tambah-setup" data-toggle="modal" class="btn btn-white btn-info btn-bold"> <i class="fa fa-plus"></i> Tambah User</a></div>
+                                            <div class="pull-left"><a id="tambah-user" href="#modal-tambah-user" data-toggle="modal" class="btn btn-white btn-info btn-bold"> <i class="fa fa-plus"></i> Tambah User</a></div>
 											<div class="pull-right tableTools-container"></div>
 										</div>
 										<!-- <div class="table-header">
@@ -77,7 +77,7 @@
 														<td>{{$item->updated_at}}</td>
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
-																<a class="green" href="#modal-tambah-setup" id="ubah-setup-{{$item->id_user}}" data-toggle="modal" >
+																<a class="green" href="#modal-tambah-user" id="ubah-user-{{$item->id_user}}" data-toggle="modal" >
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
 
@@ -120,12 +120,16 @@
 																</div>
                                                             </div>
                                                             <script>
-                                                                $("#ubah-setup-{{$item->id_user}}").click(function(){
-                                                                    var file="{{asset(str_replace('\\', '/', $item->gambar_setup))}}";
-                                                                    $('#modal-tambah-setup input[type=file]')
-                                                                    .ace_file_input('show_file_list', [
-                                                                        {type: 'image', name: 'Gambar Setup', path: file}
-                                                                    ]);
+                                                                $("#ubah-user-{{$item->id_user}}").click(function(){
+																	if(@json($item->foto_profile)){
+																		var file="{{asset(str_replace('\\', '/', $item->foto_profile))}}";
+																		$('#modal-tambah-user input[type=file]')
+																		.ace_file_input('show_file_list', [
+																			{type: 'image', name: 'Foto Profile', path: file}
+																		]);
+																	}else{
+																		$('input[type=file]').ace_file_input('reset_input');
+																	}
                                                                     $('h4').text('Ubah User');
                                                                     $('form').removeAttr('action');
                                                                     $('form').attr('action', '{{route("up.user",$item->id_user)}}');
@@ -148,7 +152,7 @@
                                         </div>
                                         
                                         <script>
-                                            $("#tambah-setup").click(function(){
+                                            $("#tambah-user").click(function(){
                                                 $('h4').text('Tambah User');
                                                 $('form').removeAttr('action');
                                                 $('form').attr('action', '{{route("daftar-admin")}}');
@@ -161,7 +165,7 @@
                                             });
                                         </script>
 
-                                        <div id="modal-tambah-setup" class="modal" tabindex="-1">
+                                        <div id="modal-tambah-user" class="modal" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <form id="form-regist" action="{{route('daftar-admin')}}" method="post" enctype="multipart/form-data">
@@ -174,7 +178,10 @@
                                                         <div class="modal-body">
                                                             <div class="row">
                                                                 <div class="col-xs-12 col-sm-5">
-																<p style="text-align:center;font-size:90px;"><i id="pre-ikon" class="fa fa-user"></i></p>
+																	<div class="space"></div>
+
+																	<input type="file" name="foto_profile" />
+																	<div class="space"></div>
                                                                 </div>
 
                                                                 <div class="col-xs-12 col-sm-5">
@@ -696,7 +703,7 @@
 			
 				$('#id-input-file-3').ace_file_input({
 					style: 'well',
-					btn_choose: 'Taruh file atau Klik disini untuk Upload Gambar Setup',
+					btn_choose: 'Taruh file atau Klik disini untuk Upload Foto Profile',
 					btn_change: null,
 					no_icon: 'ace-icon fa fa-cloud-upload',
 					droppable: true,
@@ -748,7 +755,7 @@
 						whitelist_mime = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"];
 					}
 					else {
-						btn_choose = "Taruh file atau Klik disini untuk Upload Gambar Setup";
+						btn_choose = "Taruh file atau Klik disini untuk Upload Foto Profile";
 						no_icon = "ace-icon fa fa-cloud-upload";
 						
 						whitelist_ext = null;//all extensions are acceptable
@@ -937,9 +944,9 @@
 				
 				
 				/////////
-				$('#modal-tambah-setup input[type=file]').ace_file_input({
+				$('#modal-tambah-user input[type=file]').ace_file_input({
 					style:'well',
-					btn_choose:'Taruh file atau Klik disini untuk Upload Gambar Setup',
+					btn_choose:'Taruh file atau Klik disini untuk Upload Foto Profile',
 					btn_change:null,
 					no_icon:'ace-icon fa fa-cloud-upload',
 					droppable:true,
@@ -949,7 +956,7 @@
 				//chosen plugin inside a modal will have a zero width because the select element is originally hidden
 				//and its width cannot be determined.
 				//so we set the width after modal is show
-				$('#modal-tambah-setup').on('shown.bs.modal', function () {
+				$('#modal-tambah-user').on('shown.bs.modal', function () {
 					if(!ace.vars['touch']) {
 						$(this).find('.chosen-container').each(function(){
 							$(this).find('a:first-child').css('width' , '210px');
