@@ -35,6 +35,10 @@ class RoomController extends Controller
     {
         $room=Room::all();
         $room_category=RoomCategory::all();
+        foreach($room as $i =>$item){
+            $room[$i]->form_id=json_decode($item->form_id);
+            $room[$i]->foto_ruangan=json_decode($item->foto_ruangan);
+        }
         if(request()->segment(1)=='api'){
             if($room){
                 return response()->json([
