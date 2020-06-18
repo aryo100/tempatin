@@ -522,6 +522,14 @@
 
 								<b class="arrow"></b>
 							</li>
+							<li class="{{ Request::is('master/data/promo') ? 'active open' : ''}}">
+								<a href="{{url('master/data/promo')}}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Data Promo
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 						</ul>
 					</li>
 
