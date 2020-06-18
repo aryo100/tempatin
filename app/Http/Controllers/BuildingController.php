@@ -59,6 +59,15 @@ class BuildingController extends Controller
         }
     }
 
+    public function api_city($id)
+    {
+        $city=RajaOngkir::Kota()->byProvinsi($id)->get();
+        return response()->json([
+            'data'=> $city,
+            'error' => false
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

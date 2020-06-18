@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('kota/{id}', 'BuildingController@api_kota');
+Route::get('city/{id}', 'BuildingController@api_city');
 Route::get('form/detail/{id}', 'FormController@api_form_detail');
 Route::get('package/detail/{id}', 'RoomController@api_package_detail');
 
