@@ -185,6 +185,7 @@ class RoomController extends Controller
     public function edit($id)
     {
         $room=Room::find($id);
+        $room->form_id=json_decode($room->form_id,true);
         if(request()->segment(1)=='api'){
             if($room){
                 return response()->json([
