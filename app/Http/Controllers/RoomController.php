@@ -186,6 +186,7 @@ class RoomController extends Controller
     {
         $room=Room::find($id);
         $room->form_id=json_decode($room->form_id,true);
+        $room->foto_ruangan=json_decode($room->foto_ruangan,true);
         if(request()->segment(1)=='api'){
             if($room){
                 return response()->json([
