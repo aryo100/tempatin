@@ -35,12 +35,12 @@ class RoomController extends Controller
     {
         $room=Room::all();
         $room_category=RoomCategory::all();
-        foreach($room as $i =>$item){
-            $room[$i]->form_id=json_decode($item->form_id);
-            $room[$i]->foto_ruangan=json_decode($item->foto_ruangan);
-        }
         if(request()->segment(1)=='api'){
             if($room){
+                foreach($room as $i =>$item){
+                    $room[$i]->form_id=json_decode($item->form_id);
+                    $room[$i]->foto_ruangan=json_decode($item->foto_ruangan);
+                }
                 return response()->json([
                     'data'=> $room,
                     'error' => false
@@ -189,10 +189,10 @@ class RoomController extends Controller
     public function edit($id)
     {
         $room=Room::find($id);
-        $room->form_id=json_decode($room->form_id,true);
-        $room->foto_ruangan=json_decode($room->foto_ruangan,true);
         if(request()->segment(1)=='api'){
             if($room){
+                $room->form_id=json_decode($room->form_id,true);
+                $room->foto_ruangan=json_decode($room->foto_ruangan,true);
                 return response()->json([
                     'data'=> $room,
                     'error' => false

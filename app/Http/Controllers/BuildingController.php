@@ -23,6 +23,9 @@ class BuildingController extends Controller
         $kota=RajaOngkir::Kota()->all();
         if(request()->segment(1)=='api'){
             if($building){
+                foreach($building as $i =>$item){
+                    $building[$i]->foto_bangunan=json_decode($item->foto_bangunan);
+                }
                 return response()->json([
                     'data'=> $building,
                     'error' => false

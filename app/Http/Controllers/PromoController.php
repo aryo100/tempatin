@@ -25,6 +25,9 @@ class PromoController extends Controller
         $building=Building::all();
         if(request()->segment(1)=='api'){
             if($promo){
+                foreach($promo as $i =>$item){
+                    $promo[$i]->room_or_building_id=json_decode($item->room_or_building_id);
+                }
                 return response()->json([
                     'data'=> $promo,
                     'error' => false
