@@ -47,6 +47,14 @@ class BuildingController extends Controller
     public function create()
     {
         $province=RajaOngkir::Provinsi()->all();
+        if(request()->segment(1)=='api'){
+            if($province){
+                return response()->json([
+                    'data'=> $province,
+                    'error' => false
+                ]);
+            }
+        }
         $building_type=BuildingType::all();
         return view('merchant/add_building', compact('building_type','province'));
     }
