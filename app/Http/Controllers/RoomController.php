@@ -57,6 +57,49 @@ class RoomController extends Controller
         }
     }
 
+    public function api_search(Request $request){
+        // $minimum_cost = null,$maximum_cost = null,$kota = null,$provinsi = null,$kategori_ruangan = null,$tipe_bangunan = null,$nama_ruangan = null
+        $search=$request->all();
+        $nama_ruangan=$search['nama_ruangan'];
+        $tipe_bangunan=$search['tipe_bangunan'];
+        $minimum_cost=$search['minimum_cost'];
+        $maximum_cost=$search['maximum_cost'];
+        $kategori_ruangan=$search['kategori_ruangan'];
+        $kota=$search['kota'];
+        $provinsi=$search['provinsi'];
+        $room=Room::where(function($query) use ($nama_ruangan){
+            if($nama_ruangan){
+                $query->where('nama_ruangan', 'like', '%'.$nama_ruangan.'%');
+            }
+        })
+        ->whereHas('category', function ($query) use ($kategori_ruangan){
+            if($kategori_ruangan){
+                $query->where('room_category_id', $kategori_ruangan);
+            }
+        })
+        ->whereHas('building', function ($query) use ($kota,$provinsi,$tipe_bangunan){ //dipakai utk select room inner join  building where kota provinsi
+            if($kota||$provinsi){
+                $query->where('kota',$provinsi)->orWhere('provinsi',$provinsi);
+            }
+            if($tipe_bangunan){
+                $query->where('building_type_id',$tipe_bangunan);
+            }
+        })
+        ->whereHas('package', function ($query) use ($minimum_cost,$maximum_cost){
+            if($minimum_cost&&$maximum_cost){
+                $query->whereBetween('harga',[$minimum_cost,$maximum_cost]);
+            }
+        })
+        ->with('category')// dipakai utk select('category.*')
+        ->with('building')
+        ->with('package')
+        // ->with(['building' => function($query) use ($kota,$provinsi){ //dipakei utk select room (select building where kota provinsi) 
+        //     $query->where('kota',$provinsi)->orWhere('provinsi',$provinsi);
+        // }])
+        ->get();
+        return $room;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

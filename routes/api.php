@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('search/room', 'RoomController@api_search');
+
 Route::get('kota/{id}', 'BuildingController@api_kota');
 Route::get('city/{id}', 'BuildingController@api_city');
 Route::get('province/{id}', 'BuildingController@create');
@@ -32,9 +34,9 @@ Route::get('user/{id}', 'UserController@show');
 Route::post('user/edit/{id}', 'UserController@update');
 
 Route::get('rooms', 'RoomController@index');
+Route::get('room/categories', 'RoomCategoryController@index');
 Route::get('room/{id}', 'RoomController@edit');
 
-Route::get('room/categories', 'RoomCategoryController@index');
 
 Route::get('room/setups', 'SetupController@index');
 
