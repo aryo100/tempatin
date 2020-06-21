@@ -61,15 +61,19 @@ class RoomController extends Controller
         // $minimum_cost = null,$maximum_cost = null,$kota = null,$provinsi = null,$kategori_ruangan = null,$tipe_bangunan = null,$nama_ruangan = null
         $search=$request->all();
         $nama_ruangan=$search['nama_ruangan'];
+        $kapasitas=$search['kapasitas'];
         $tipe_bangunan=$search['tipe_bangunan'];
         $minimum_cost=$search['minimum_cost'];
         $maximum_cost=$search['maximum_cost'];
         $kategori_ruangan=$search['kategori_ruangan'];
         $kota=$search['kota'];
         $provinsi=$search['provinsi'];
-        $room=Room::where(function($query) use ($nama_ruangan){
+        $room=Room::where(function($query) use ($nama_ruangan,$kapasitas){
             if($nama_ruangan){
                 $query->where('nama_ruangan', 'like', '%'.$nama_ruangan.'%');
+            }
+            if($kapasitas){
+                $query->where('kapasitas',$kapasitas);
             }
         })
         ->whereHas('category', function ($query) use ($kategori_ruangan){
