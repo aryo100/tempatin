@@ -103,7 +103,20 @@ class RoomController extends Controller
         //     $query->where('kota',$provinsi)->orWhere('provinsi',$provinsi);
         // }])
         ->get();
-        return $room;
+        if($room){
+            foreach($room as $i =>$item){
+                $room[$i]->form_id=json_decode($item->form_id);
+                $room[$i]->foto_ruangan=json_decode($item->foto_ruangan);
+            }
+            return response()->json([
+                'data'=> $room,
+                'error' => false
+            ]);
+        }else{
+            return response()->json([
+                'error' => true
+            ]);
+        }
     }
 
     /**
