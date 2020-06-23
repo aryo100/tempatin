@@ -33,7 +33,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $room=Room::all();
+        $room=Room::with('category')->with('building')->with('package')->with('setup')->get();
         $room_category=RoomCategory::all();
         if(request()->segment(1)=='api'){
             if($room){
@@ -97,6 +97,8 @@ class RoomController extends Controller
         ->with('category')// dipakai utk select('category.*')
         ->with('building')
         ->with('package')
+        ->with('setup')
+        
         // ->with(['building' => function($query) use ($kota,$provinsi){ //dipakei utk select room (select building where kota provinsi) 
         //     $query->where('kota',$provinsi)->orWhere('provinsi',$provinsi);
         // }])
@@ -235,7 +237,7 @@ class RoomController extends Controller
      */
     public function edit($id)
     {
-        $room=Room::with('category')->with('building')->find($id);
+        $room=Room::with('category')->with('building')->with('setup')->with('package')->find($id);
         if(request()->segment(1)=='api'){
             if($room){
                 $room->form_id=json_decode($room->form_id,true);
