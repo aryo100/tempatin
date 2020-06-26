@@ -304,13 +304,11 @@
 																
 																<script>
 																	function cek_status(value=null){
-																		alert(value);
 																		if(value){
 																			// value = Object.keys(value).map(function(key) {
 																			// 	return [value[key]];
 																			// });
 																			value = JSON.parse(value.replace(/&quot;/g,'"'));
-																			alert(value);
 																		}
 
 																		$('#pilih-bangunan').hide();
