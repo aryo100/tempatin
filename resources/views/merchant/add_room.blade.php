@@ -101,7 +101,7 @@
 													}
 
 													// form
-													var form = @json($room->form_id	);
+													var form = @json($room->form_id);
 													if(form){
 													form = JSON.parse(form.replace(/&quot;/g,'"'));
 													$('#formulir').val(form);

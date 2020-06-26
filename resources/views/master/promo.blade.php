@@ -140,8 +140,10 @@
 																	$('#tanggal_promo').data('daterangepicker').setStartDate('{{date_format(date_create($item->start_date),"m/d/Y H:i A")}}');
 																	$('#tanggal_promo').data('daterangepicker').setEndDate('{{date_format(date_create($item->end_date),"m/d/Y H:i A")}}');
 
-                                                                    $('#status').val('{{$item->status_penyebaran}}');
+																	var form = @json($item->status_penyebaran);
+                                                                    $('#status').val(form);
 																	$('#status').trigger("chosen:updated");
+																	
                                                                 });
                                                             </script>
 														</td>
@@ -270,15 +272,20 @@
 																				<option value="4">Ruangan Tertentu</option>
 																			</select>
 																			<script>
+																				function cek_status(){
+																					alert($('#status').val());
+																					if($('#status').val()==3){
+																						$('#pilih-bangunan').show();
+																					}
+																					if($('#status').val()==4){
+																						$('#pilih-ruangan').show();
+																					}
+																				}
+																				cek_status();
 																				$('#status').on('change', function(){
 																					$('#pilih-bangunan').hide();
 																					$('#pilih-ruangan').hide();
-																					if($(this).val()==3){
-																						$('#pilih-bangunan').show();
-																					}
-																					if($(this).val()==4){
-																						$('#pilih-ruangan').show();
-																					}
+																					cek_status();
 																				});
 																			</script>
                                                                         </div>

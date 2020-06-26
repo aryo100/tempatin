@@ -140,8 +140,10 @@
 																	$('#tanggal_promo').data('daterangepicker').setStartDate('{{date_format(date_create($item->start_date),"m/d/Y H:i A")}}');
 																	$('#tanggal_promo').data('daterangepicker').setEndDate('{{date_format(date_create($item->end_date),"m/d/Y H:i A")}}');
 
-                                                                    $('#status').val('{{$item->status_penyebaran}}');
+																	var form = @json($item->status_penyebaran);
+                                                                    $('#status').val(form);
 																	$('#status').trigger("chosen:updated");
+																	cek_status(@json($item->room_or_building_id));
                                                                 });
                                                             </script>
 														</td>
@@ -161,6 +163,7 @@
 												$('#editor1').html('');
 												$('#status').val('');
 												$('#status').trigger("chosen:updated");
+												cek_status();
 												$('#tanggal_promo').data('daterangepicker').setStartDate(new Date());
 												$('#tanggal_promo').data('daterangepicker').setEndDate(new Date());
                                             });
@@ -269,18 +272,6 @@
 																				<option value="3">Bangunan Tertentu</option>
 																				<option value="4">Ruangan Tertentu</option>
 																			</select>
-																			<script>
-																				$('#status').on('change', function(){
-																					$('#pilih-bangunan').hide();
-																					$('#pilih-ruangan').hide();
-																					if($(this).val()==3){
-																						$('#pilih-bangunan').show();
-																					}
-																					if($(this).val()==4){
-																						$('#pilih-ruangan').show();
-																					}
-																				});
-																			</script>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -289,7 +280,7 @@
                                                                         <label for="form-field-status">Bangunan</label>
 
                                                                         <div>
-																			<select multiple="" id="status" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
+																			<select multiple="" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
 																			@foreach($building as $item)	
 																				<option value="{{$item->id_building}}">{{$item->nama_bangunan}}</option>
 																			@endforeach
@@ -302,7 +293,7 @@
                                                                         <label for="form-field-status">Ruangan</label>
 
                                                                         <div>
-																			<select multiple="" id="status" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
+																			<select multiple="" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
 																			@foreach($room as $item)	
 																				<option value="{{$item->id_room}}">{{$item->nama_ruangan}}</option>
 																			@endforeach
@@ -310,6 +301,37 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+																
+																<script>
+																	function cek_status(value=null){
+																		alert(value);
+																		if(value){
+																			// value = Object.keys(value).map(function(key) {
+																			// 	return [value[key]];
+																			// });
+																			value = JSON.parse(value.replace(/&quot;/g,'"'));
+																			alert(value);
+																		}
+
+																		$('#pilih-bangunan').hide();
+																		$('#pilih-ruangan').hide();
+																		if($('#status').val()==3){
+																			$('#pilih-bangunan').show();
+																			
+																			$('#pilih-bangunan .select2').val(value);
+																			$('#pilih-bangunan .select2').trigger("chosen:updated");
+																		}
+																		if($('#status').val()==4){
+																			$('#pilih-ruangan').show();
+																			$('#pilih-ruangan .select2').val(value);
+																			$('#pilih-ruangan .select2').trigger("chosen:updated");
+																		}
+																	}
+																	cek_status();
+																	$('#status').on('change', function(){
+																		cek_status();
+																	});
+																</script>
 															</div>
                                                         </div>
 

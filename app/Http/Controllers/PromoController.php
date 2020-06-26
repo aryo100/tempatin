@@ -140,7 +140,7 @@ class PromoController extends Controller
         $promo->deskripsi = $request->post('deskripsi');
         $promo->batas_durasi_per_jam = $request->post('batas_durasi_per_jam');
         $promo->kuota = $request->post('kuota');
-        $promo->room_or_building_id = $request->post('room_or_building_id');
+        $promo->room_or_building_id = json_encode($request->post('room_or_building_id'));
         $promo->status_penyebaran = $request->post('status_penyebaran');
         $promo->save();
         return redirect()->back()->with('success', 'promo telah berhasil diubah');
