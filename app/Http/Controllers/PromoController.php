@@ -38,7 +38,14 @@ class PromoController extends Controller
                 ]);
             }
         }
-        return view('merchant/promo', compact('promo','room','building'));
+        if(Auth::user()->role_id==0){
+            $promo = $promo->where('role_id',0);
+            return view('master/promo', compact('promo','room','building'));
+        }else if(Auth::user()->role_id==1){
+            $room->where('user_id',Auth::user()->id_user);
+            $promo = $promo->where('role_id',1);
+            return view('merchant/promo', compact('promo','room','building'));
+        }
     }
 
     /**

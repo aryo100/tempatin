@@ -45,7 +45,8 @@
 														<th>Nama Promo</th>
 														<th>Banner Promo</th>
 														<th>Kuota</th>
-														<th>Diskon</th>
+														<th>Minimum Penyewaan</th>
+														<th>Diskon Harga Total</th>
 														<th>Promo berlaku di</th>
 														<th>Tanggal Promo</th>
 														<th>
@@ -72,7 +73,8 @@
 														<td><img src="{{asset($item->gambar_promo)}}" style="width:60px;" alt=""></td>
 														<td>{{$item->kuota}}</td>
 														<td>{{$item->batas_durasi_per_jam}}</td>
-														<td>@if($item->status_penyebaran==1) semua bangunan @elseif($item->status_penyebaran==2) semua ruangan @elseif($item->status_penyebaran==3) bangunan tertentu @elseif($item->status_penyebaran==4) ruangan tertentu @endif</td>
+														<td>{{$item->diskon}}%</td>
+														<td>@if($item->status_penyebaran==1) semua ruangan @elseif($item->status_penyebaran==2) bangunan tertentu @elseif($item->status_penyebaran==3) ruangan tertentu @endif</td>
 														<td>{{$item->start_date.' - '.$item->end_date}}</td>
 														<td>{{$item->updated_at}}</td>
 														<td>
@@ -81,7 +83,7 @@
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
 
-																<a class="red" href="{{route('del.promo',$item->id_promo)}}">
+																<a class="red" href="{{route('del.promo.master',$item->id_promo)}}">
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
 															</div>
@@ -130,9 +132,9 @@
 																	}
                                                                     $('h4').text('Ubah Promo Ruangan');
                                                                     $('form').removeAttr('action');
-                                                                    $('form').attr('action', '{{route("up.promo",$item->id_promo)}}');
+                                                                    $('form').attr('action', '{{route("up.promo.master",$item->id_promo)}}');
                                                                     $('#form-field-nama').val('{{$item->nama_promo}}');
-                                                                    $('#form-field-nominal').val('{{$item->nominal}}');
+                                                                    $('#form-field-diskon').val('{{$item->diskon}}');
 																	$('#editor1').html(@json($item->deskripsi));
                                                                     $('#form-field-kuota').val('{{$item->kuota}}');
                                                                     $('#form-field-durasi').val('{{$item->batas_durasi_per_jam}}');
@@ -143,7 +145,7 @@
 																	var form = @json($item->status_penyebaran);
                                                                     $('#status').val(form);
 																	$('#status').trigger("chosen:updated");
-																	
+																	cek_status(@json($item->room_or_building_id));
                                                                 });
                                                             </script>
 														</td>
@@ -157,12 +159,13 @@
                                             $("#tambah-promo").click(function(){
                                                 $('h4').text('Tambah Promo Ruangan');
                                                 $('form').removeAttr('action');
-                                                $('form').attr('action', '{{route("create.promo")}}');
+                                                $('form').attr('action', '{{route("create.promo.master")}}');
                                                 $('form').trigger("reset");
                                                 $('input[type=file]').ace_file_input('reset_input');
 												$('#editor1').html('');
 												$('#status').val('');
 												$('#status').trigger("chosen:updated");
+												cek_status();
 												$('#tanggal_promo').data('daterangepicker').setStartDate(new Date());
 												$('#tanggal_promo').data('daterangepicker').setEndDate(new Date());
                                             });
@@ -171,7 +174,7 @@
                                         <div id="modal-tambah-promo" class="modal" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <form action="{{route('create.promo')}}" method="post" enctype="multipart/form-data">
+                                                    <form action="{{route('create.promo.master')}}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -215,10 +218,10 @@
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-4">
                                                                     <div class="form-group">
-                                                                        <label for="form-field-nominal">Nominal potongan harga</label>
+                                                                        <label for="form-field-diskon">Diskon harga total</label>
 
                                                                         <div>
-                                                                            <input name="nominal" placeholder="Rp." type="text" id="form-field-nominal" />
+                                                                            <input name="diskon" placeholder="%" type="text" id="form-field-diskon" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -266,28 +269,10 @@
 
                                                                         <div>
 																			<select id="status" name="status_penyebaran" class="select2" data-placeholder="Click to Choose...">
-																				<option value="1">Semua Bangunan</option>
-																				<option value="2">Semua Ruangan</option>
-																				<option value="3">Bangunan Tertentu</option>
-																				<option value="4">Ruangan Tertentu</option>
+																				<option value="1">Semua Ruangan</option>
+																				<option value="2">Bangunan Tertentu</option>
+																				<option value="3">Ruangan Tertentu</option>
 																			</select>
-																			<script>
-																				function cek_status(){
-																					alert($('#status').val());
-																					if($('#status').val()==3){
-																						$('#pilih-bangunan').show();
-																					}
-																					if($('#status').val()==4){
-																						$('#pilih-ruangan').show();
-																					}
-																				}
-																				cek_status();
-																				$('#status').on('change', function(){
-																					$('#pilih-bangunan').hide();
-																					$('#pilih-ruangan').hide();
-																					cek_status();
-																				});
-																			</script>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -296,7 +281,7 @@
                                                                         <label for="form-field-status">Bangunan</label>
 
                                                                         <div>
-																			<select multiple="" id="status" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
+																			<select multiple="" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
 																			@foreach($building as $item)	
 																				<option value="{{$item->id_building}}">{{$item->nama_bangunan}}</option>
 																			@endforeach
@@ -309,7 +294,7 @@
                                                                         <label for="form-field-status">Ruangan</label>
 
                                                                         <div>
-																			<select multiple="" id="status" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
+																			<select multiple="" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
 																			@foreach($room as $item)	
 																				<option value="{{$item->id_room}}">{{$item->nama_ruangan}}</option>
 																			@endforeach
@@ -317,6 +302,35 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+																
+																<script>
+																	function cek_status(value=null){
+																		if(value){
+																			// value = Object.keys(value).map(function(key) {
+																			// 	return [value[key]];
+																			// });
+																			value = JSON.parse(value.replace(/&quot;/g,'"'));
+																		}
+
+																		$('#pilih-bangunan').hide();
+																		$('#pilih-ruangan').hide();
+																		if($('#status').val()==2){
+																			$('#pilih-bangunan').show();
+																			
+																			$('#pilih-bangunan .select2').val(value);
+																			$('#pilih-bangunan .select2').trigger("chosen:updated");
+																		}
+																		if($('#status').val()==3){
+																			$('#pilih-ruangan').show();
+																			$('#pilih-ruangan .select2').val(value);
+																			$('#pilih-ruangan .select2').trigger("chosen:updated");
+																		}
+																	}
+																	cek_status();
+																	$('#status').on('change', function(){
+																		cek_status();
+																	});
+																</script>
 															</div>
                                                         </div>
 
@@ -386,7 +400,7 @@
 					bAutoWidth: false,
 					"aoColumns": [
 					  { "bSortable": false },
-					  null, null,null,null,null,null,null,
+					  null, null,null,null,null,null,null,null,
 					  { "bSortable": false }
 					],
 					"aaSorting": [],

@@ -63,6 +63,11 @@ Route::post('master/form', 'FormController@store')->name('create.form');
 Route::get('master/form/{id}', 'FormController@destroy')->name('del.form');
 Route::post('master/form/{id}', 'FormController@update')->name('up.form');
 
+Route::get('master/data/promo', 'PromoController@index')->name('index.promo.master');
+Route::post('master/data/promo', 'PromoController@store')->name('create.promo.master');
+Route::get('master/data/promo/{id}', 'PromoController@destroy')->name('del.promo.master');
+Route::post('master/data/promo/{id}', 'PromoController@update')->name('up.promo.master');
+
 // merchant
 Route::get('merchant/room', 'RoomController@index')->name('index.room');
 Route::get('merchant/room/create', 'RoomController@create')->name('add.room');
@@ -78,10 +83,10 @@ Route::get('merchant/building/{id}', 'BuildingController@destroy')->name('del.bu
 Route::get('merchant/building/edit/{id}', 'BuildingController@edit')->name('edit.building');
 Route::post('merchant/building/{id}', 'BuildingController@update')->name('up.building');
 
-Route::get('merchant/promo', 'PromoController@index')->name('index.promo');
-Route::post('merchant/promo', 'PromoController@store')->name('create.promo');
-Route::get('merchant/promo/{id}', 'PromoController@destroy')->name('del.promo');
-Route::post('merchant/promo/{id}', 'PromoController@update')->name('up.promo');
+Route::get('merchant/promo', 'PromoController@index')->name('index.promo.merchant');
+Route::post('merchant/promo', 'PromoController@store')->name('create.promo.merchant');
+Route::get('merchant/promo/{id}', 'PromoController@destroy')->name('del.promo.merchant');
+Route::post('merchant/promo/{id}', 'PromoController@update')->name('up.promo.merchant');
 
 // schedule
 Route::get('merchant/schedule', 'ScheduleController@index')->name('index.room');

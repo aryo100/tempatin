@@ -46,6 +46,7 @@
 														<th>Banner Promo</th>
 														<th>Kuota</th>
 														<th>Minimum Penyewaan</th>
+														<th>Nominal Potongan</th>
 														<th>Promo berlaku di</th>
 														<th>Tanggal Promo</th>
 														<th>
@@ -72,6 +73,7 @@
 														<td><img src="{{asset($item->gambar_promo)}}" style="width:60px;" alt=""></td>
 														<td>{{$item->kuota}}</td>
 														<td>{{$item->batas_durasi_per_jam}}</td>
+														<td>Rp. {{$item->nominal}}</td>
 														<td>@if($item->status_penyebaran==1) semua bangunan @elseif($item->status_penyebaran==2) semua ruangan @elseif($item->status_penyebaran==3) bangunan tertentu @elseif($item->status_penyebaran==4) ruangan tertentu @endif</td>
 														<td>{{$item->start_date.' - '.$item->end_date}}</td>
 														<td>{{$item->updated_at}}</td>
@@ -81,7 +83,7 @@
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
 
-																<a class="red" href="{{route('del.promo',$item->id_promo)}}">
+																<a class="red" href="{{route('del.promo.merchant',$item->id_promo)}}">
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
 															</div>
@@ -130,7 +132,7 @@
 																	}
                                                                     $('h4').text('Ubah Promo Ruangan');
                                                                     $('form').removeAttr('action');
-                                                                    $('form').attr('action', '{{route("up.promo",$item->id_promo)}}');
+                                                                    $('form').attr('action', '{{route("up.promo.merchant",$item->id_promo)}}');
                                                                     $('#form-field-nama').val('{{$item->nama_promo}}');
                                                                     $('#form-field-nominal').val('{{$item->nominal}}');
 																	$('#editor1').html(@json($item->deskripsi));
@@ -157,7 +159,7 @@
                                             $("#tambah-promo").click(function(){
                                                 $('h4').text('Tambah Promo Ruangan');
                                                 $('form').removeAttr('action');
-                                                $('form').attr('action', '{{route("create.promo")}}');
+                                                $('form').attr('action', '{{route("create.promo.merchant")}}');
                                                 $('form').trigger("reset");
                                                 $('input[type=file]').ace_file_input('reset_input');
 												$('#editor1').html('');
@@ -172,7 +174,7 @@
                                         <div id="modal-tambah-promo" class="modal" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <form action="{{route('create.promo')}}" method="post" enctype="multipart/form-data">
+                                                    <form action="{{route('create.promo.merchant')}}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -399,7 +401,7 @@
 					bAutoWidth: false,
 					"aoColumns": [
 					  { "bSortable": false },
-					  null, null,null,null,null,null,null,
+					  null, null,null,null,null,null,null,null,
 					  { "bSortable": false }
 					],
 					"aaSorting": [],
