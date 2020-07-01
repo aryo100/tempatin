@@ -38,20 +38,49 @@ class FormController extends Controller
     public function api_form_detail($id)
     {
         $form_detail=FormDetail::where('form_id',$id)->get();
+        if(request()->segment(3)!='detail'){
+            if($form_detail){
+                foreach($form_detail as $i =>$item){
+                    $form_detail[$i]->input_awal=json_decode($item->input_awal);
+                }
+                return response()->json([
+                    'data'=> $form_detail,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
         $i=0;
+        // return $form_detail."|||||".$id;
         foreach($form_detail as $item){
+            $input_awal="";
+            if($item->input_awal){
+            $input_awal= implode(",",json_decode($item->input_awal,true));
+            }
              echo'<tr data-repeater-item>
                 <td><input type="text" name="form-detail['.$i.'][nama_kolom]" value="'.$item->nama_kolom.'" class="form-control form-filter input-sm"></td>
                 <td>
-                    <select name="form-detail['.$i.'][tipe_input]" id="form-field-status" value="'.$item->tipe_input.'">
+                    <select name="form-detail['.$i.'][tipe_input]" id="form-field-tipe-'.$i.'">
                         <option value="text">Text</option>
                         <option value="textarea">Long Text</option>
-                        <option value="number">Number</option>
+                        <option value="radio">Radio Button</option>
                         <option value="checkbox">Checkbox</option>
-                        <option value="option">Option</option>
+                        <option value="selection">Selection</option>
                     </select>
                 </td>
-                <td><input type="text" name="form-detail['.$i.'][input_awal]" value="'.$item->input_awal.'" class="form-control form-filter input-sm"></td>
+                <td>
+                    <input type="text" id="form-field-awal-'.$i.'" name="form-detail['.$i.'][input_awal]" value="'.$input_awal.'" class="form-control form-filter input-sm">
+                </td>
+                <script>
+                $("#form-field-tipe-'.$i.'").val("'.$item->tipe_input.'");
+                
+                if($("#form-field-tipe-'.$i.'").val()=="radio"||$("#form-field-tipe-'.$i.'").val()=="checkbox"||$("#form-field-tipe-'.$i.'").val()=="selection"){
+                    $("#form-field-awal-'.$i.'").attr("placeholder","pilihan_1,pilihan_2,....");
+                }
+                </script>
                 <td>
                     <input id="id-button-borders" name="form-detail['.$i.'][status_value]" type="checkbox" class="ace ace-switch ace-switch-5" '.($item->status_value==1 ? 'checked':'').'/>
                     <span class="lbl middle"></span>
@@ -96,7 +125,7 @@ class FormController extends Controller
                   'form_id' => $form->id_form,
                   'nama_kolom' => $request['form-detail'][$i]['nama_kolom'],
                   'tipe_input' => $request['form-detail'][$i]['tipe_input'],
-                  'input_awal' => $request['form-detail'][$i]['input_awal'],
+                  'input_awal' => json_encode(explode(',', $request['form-detail'][$i]['input_awal'])),
                   'status_value' => empty($request['form-detail'][$i]['status_value']) ? 0:1,
                 ];
                 FormDetail::create($data);
@@ -155,7 +184,7 @@ class FormController extends Controller
               'form_id' => $id,
               'nama_kolom' => $request['form-detail'][$i]['nama_kolom'],
               'tipe_input' => $request['form-detail'][$i]['tipe_input'],
-              'input_awal' => $request['form-detail'][$i]['input_awal'],
+              'input_awal' => json_encode(explode(',', $request['form-detail'][$i]['input_awal'])),
               'status_value' => empty($request['form-detail'][$i]['status_value']) ? 0:1,
             ];
             FormDetail::create($data);

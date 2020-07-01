@@ -458,13 +458,14 @@
 												@if($schedule)
 												<script>
 													var data = @json($schedule);
-													$('.ace-checkbox-2').each(function (i,value) {
-														if(i==(data[i].hari-1)){
-															$(this).attr('checked', 'checked');
-															$(this).parents().eq(3).find('.input-timerange').prop("disabled",false);
-															$(this).parents().eq(3).find('.input-timerange').val(data[i].jam_buka+' - '+data[i].jam_tutup);
-															 
-														}
+													data.forEach(function(entry) {
+														$('.ace-checkbox-2').each(function (i,value) {
+															if(entry&&i==(entry.hari-1)){
+																$(this).attr('checked', 'checked');
+																$(this).parents().eq(3).find('.input-timerange').prop("disabled",false);
+																$(this).parents().eq(3).find('.input-timerange').val(entry.jam_buka+' - '+entry.jam_tutup);
+															}
+														});
 													});
 												</script>
 												@endif

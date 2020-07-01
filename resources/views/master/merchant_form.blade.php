@@ -161,12 +161,12 @@
 												var kolom = '<tr data-repeater-item>'+
 																'<td><input type="text" name="nama_kolom" class="form-control form-filter input-sm"></td>'+
 																'<td>'+
-																	'<select name="tipe_input" id="form-field-status">'+
+																	'<select name="tipe_input" id="form-field-tipe">'+
 																		'<option value="text">Text</option>'+
 																		'<option value="textarea">Long Text</option>'+
-																		'<option value="number">Number</option>'+
+																		'<option value="radio">Radio Button</option>'+
 																		'<option value="checkbox">Checkbox</option>'+
-																		'<option value="option">Option</option>'+
+																		'<option value="selection">Selection</option>'+
 																	'</select>'+
 																'</td>'+
 																'<td><input type="text" name="input_awal" class="form-control form-filter input-sm"></td>'+
@@ -187,7 +187,7 @@
                                         <div id="modal-tambah-form" class="modal" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <form action="{{route('create.form')}}" method="post" enctype="multipart/form-data">
+                                                    <form id="form-kolom" action="{{route('create.form')}}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -260,15 +260,18 @@
 																			<tr data-repeater-item>
 																				<td><input type="text" name="nama_kolom" class="form-control form-filter input-sm"></td>
 																				<td>
-																					<select name="tipe_input" id="form-field-status">
+																					<select name="tipe_input" id="form-field-tipe">
 																						<option value="text">Text</option>
 																						<option value="textarea">Long Text</option>
-																						<option value="number">Number</option>
+																						<option value="radio">Radio Button</option>
 																						<option value="checkbox">Checkbox</option>
-																						<option value="option">Option</option>
+																						<option value="selection">Selection</option>
 																					</select>
 																				</td>
-																				<td><input type="text" name="input_awal" class="form-control form-filter input-sm"></td>
+																				<td>
+																					<input id="form-field-awal" type="text" name="input_awal" class="form-control form-filter input-sm">
+																					
+																				</td>
 																				<td>
 																					<input id="id-button-borders" name="status_value" type="checkbox" checked class="ace ace-switch ace-switch-5" />
 																					<span class="lbl middle"></span>
@@ -281,6 +284,34 @@
 																			</tr>
 																		</tbody>
 																	</table>
+																	
+																	<script>
+																		$("#form-field-tipe").on("change",function(){
+																			if($(this).val()=="radio"||$(this).val()=="checkbox"||$(this).val()=="selection"){
+																				// $("#form-field-awal-'.$i.'").attr("placeholder","pilihan_1,pilihan_2,....");
+																				alert($(this).parents().eq(2).find('#form-field-awal').val());
+																			}
+																		});
+																		// $(document).ready(function(){ 
+																			// function cek_tipe(){
+																			// 	$('select[name="tipe_input"]').each(function(ev){
+																			// 		if($(this).val()=="radio"||$(this).val()=="checkbox"||$(this).val()=="selection"){
+																			// 			$(".default-kolom").attr('placeholder','pilihan_1,pilihan_2,....');
+																			// 		}
+																					
+																			// 		alert($(this).parents().eq(2).find('.default-kolom').val());
+																					// 
+																					// if(!$(this).val()) { 
+																					// $(this).attr("placeholder", "Type your answer here");
+																					// }
+																				// });
+																			// }
+																			// if($('#form-field-tipe').val()=="radio"||$('#form-field-tipe').val()=="checkbox"||$('#form-field-tipe').val()=="selection"){
+																			// 	$(".default-kolom").attr('placeholder','pilihan_1,pilihan_2,....');
+																			// }
+																			// cek_tipe();
+																		// });
+																	</script>
 																	<a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add">
 																		<i class="fa fa-plus"></i>
 																	</a>

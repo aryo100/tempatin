@@ -36,7 +36,12 @@ class BuildingController extends Controller
                 ]);
             }
         }
-        return view('merchant/building', compact('building','building_type','provinsi','kota'));
+        if(Auth::user()->role_id==0){
+            return view('master/building', compact('building','building_type','provinsi','kota'));
+        }else if(Auth::user()->role_id==1){
+            $building=$building->where('user_id',Auth::user()->id_user);
+            return view('merchant/building', compact('building','building_type','provinsi','kota'));
+        }
     }
 
     /**

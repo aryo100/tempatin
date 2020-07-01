@@ -53,7 +53,13 @@ class RoomController extends Controller
         }else{
         // $provinsi=RajaOngkir::Provinsi()->all();
         // $kota=RajaOngkir::Kota()->all();
+        if(Auth::user()->role_id==0){
+            return view('master/room', compact('room','room_category'));
+        }else if(Auth::user()->role_id==1){
+            $room=$room->where('user_id',Auth::user()->id_user);
+            // return $room;
             return view('merchant/room', compact('room','room_category'));
+        }
         }
     }
 
@@ -222,7 +228,7 @@ class RoomController extends Controller
                 }
             }
             
-            return redirect()->route('index.room')->with('success', 'ruangan telah berhasil ditambahkan');
+            return redirect()->route('index.room.merchant')->with('success', 'ruangan telah berhasil ditambahkan');
             // return redirect()->back()->with('success', 'ruangan telah berhasil ditambahkan');
         }catch(Exception $e) {
             return response()->json([
@@ -251,7 +257,7 @@ class RoomController extends Controller
      */
     public function edit($id)
     {
-        $room=Room::with('category')->with('building')->with('setup')->with('package')->with('facility')->find($id);
+        $room=Room::with('category')->with('building')->with('setup')->with('package')->with('facility')->with('schedule')->find($id);
         if(request()->segment(1)=='api'){
             if($room){
                 $room->form_id=json_decode($room->form_id,true);
@@ -280,6 +286,7 @@ class RoomController extends Controller
         $facility_detail = FacilityDetail::where('room_id',$id)->get();
         $package_detail = PackageDetail::where('room_id',$id)->get();
         $schedule = Schedule::where('room_id',$id)->get();
+        // return $schedule;
         return view('merchant/add_room', compact('room','category_detail','setup_detail','facility_detail','package_detail','schedule','room_category','facility_category','setup','package','building','form','promo'));
     }
 

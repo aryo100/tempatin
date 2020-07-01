@@ -67,7 +67,7 @@
 														</td>
 
 														<td>
-															{{$item->building->nama_bangunan}}
+															@if($item->building){{$item->building->nama_bangunan}}@else Belum ada bangunan @endif
 														</td>
 														<td>
 															{{$item->nama_ruangan}}

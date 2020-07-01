@@ -270,21 +270,7 @@
                                                                         <div>
 																			<select id="status" name="status_penyebaran" class="select2" data-placeholder="Click to Choose...">
 																				<option value="1">Semua Ruangan</option>
-																				<option value="2">Bangunan Tertentu</option>
-																				<option value="3">Ruangan Tertentu</option>
-																			</select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div id="pilih-bangunan" style="display:none;" class="col-xs-12 col-sm-4">
-                                                                    <div class="form-group">
-                                                                        <label for="form-field-status">Bangunan</label>
-
-                                                                        <div>
-																			<select multiple="" name="room_or_building_id[]" class="select2" data-placeholder="Click to Choose...">
-																			@foreach($building as $item)	
-																				<option value="{{$item->id_building}}">{{$item->nama_bangunan}}</option>
-																			@endforeach
+																				<option value="2">Ruangan Tertentu</option>
 																			</select>
                                                                         </div>
                                                                     </div>
@@ -315,12 +301,6 @@
 																		$('#pilih-bangunan').hide();
 																		$('#pilih-ruangan').hide();
 																		if($('#status').val()==2){
-																			$('#pilih-bangunan').show();
-																			
-																			$('#pilih-bangunan .select2').val(value);
-																			$('#pilih-bangunan .select2').trigger("chosen:updated");
-																		}
-																		if($('#status').val()==3){
 																			$('#pilih-ruangan').show();
 																			$('#pilih-ruangan .select2').val(value);
 																			$('#pilih-ruangan .select2').trigger("chosen:updated");

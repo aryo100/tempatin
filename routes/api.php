@@ -47,6 +47,7 @@ Route::get('building/type', 'BuildingTypeController@index');
 Route::get('packages', 'PackageController@index');
 
 Route::get('forms', 'FormController@index');
+Route::get('form/{id}', 'FormController@api_form_detail');
 
 Route::get('buildings', 'BuildingController@index');
 

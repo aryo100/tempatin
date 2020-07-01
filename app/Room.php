@@ -38,4 +38,9 @@ class Room extends Model
     {
         return $this->belongsToMany('App\Package','App\PackageDetail','room_id','package_id')->withPivot('harga');
     }
+    
+    public function schedule()
+    {
+        return $this->hasMany('App\Schedule','room_id');
+    }
 }
