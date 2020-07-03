@@ -48,6 +48,7 @@ Route::get('packages', 'PackageController@index');
 
 Route::get('forms', 'FormController@index');
 Route::get('form/{id}', 'FormController@api_form_detail');
+Route::get('payment/method', 'FormController@payment_method');
 
 Route::get('buildings', 'BuildingController@index');
 

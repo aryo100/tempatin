@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+// use Xendit\Xendit;
 use Illuminate\Http\Request;
 use App\Form;
 use App\FormContent;
 use App\FormDetail;
 use App\User;
+use XenditClient\XenditPHPClient as Xendit;
 
 class FormController extends Controller
 {
@@ -33,6 +35,24 @@ class FormController extends Controller
         }
         $user=User::where('role_id',1)->get();
         return view('master/merchant_form', compact('form','user','form_detail'));
+    }
+
+    public function payment_method(){
+        if(request()->segment(1)=='api'){
+            $options['secret_api_key'] = env('SECRET_API_KEY');
+
+            $xenditPHPClient = new Xendit($options);
+
+            $getDisbursementsBanks = $xenditPHPClient->getAvailableDisbursementBanks();
+            return response()->json([
+                'data'=>$getDisbursementsBanks,
+                'error' => false
+            ]);
+        }else{
+            return response()->json([
+                'error' => true
+            ]);
+        }
     }
 
     public function api_form_detail($id)

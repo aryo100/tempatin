@@ -13,7 +13,8 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.2",
-        "rizalafani/rajaongkirlaravel": "^1.0"
+        "rizalafani/rajaongkirlaravel": "^1.0",
+        "xendit/xendit-php": "^1.4"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
