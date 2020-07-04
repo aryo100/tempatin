@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id_order');
             $table->string('invoice_id');
             $table->integer('user_id');
+            $table->integer('room_id');
             $table->integer('form_id');
             $table->integer('promo_detail_id');
             $table->string('method_pay');

@@ -88,5 +88,8 @@ Route::post('merchant/promo', 'PromoController@store')->name('create.promo.merch
 Route::get('merchant/promo/{id}', 'PromoController@destroy')->name('del.promo.merchant')->middleware('role:1');
 Route::post('merchant/promo/{id}', 'PromoController@update')->name('up.promo.merchant')->middleware('role:1');
 
+
+Route::get('merchant/order/{id}', 'OrderController@destroy')->name('del.order.merchant');
+
 // schedule
 Route::get('merchant/schedule', 'ScheduleController@index')->name('index.schedule')->middleware('role:1');
