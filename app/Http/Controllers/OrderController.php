@@ -70,10 +70,11 @@ class OrderController extends Controller
             for ($i=0; $i < count($request['form_content']); $i++) {
                 // $form_detail=FormDetail::find($request['form_content'][$i]['form_detail_id']);
                 // $default_value=$form_detail->??
+                // $request['form_content'][$i]['value']==""?: $default_value
                 $form_content=[
                   'order_id' => $order->id_order,
                   'form_detail_id' => $request['form_content'][$i]['form_detail_id'],
-                  'value' => $request['form_content'][$i]['value']==""?$request['form_content'][$i]['value']:$default_value,
+                  'value' => $request['form_content'][$i]['value'],
                 ];
                 FormContent::create($form_content);
             }
