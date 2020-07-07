@@ -411,7 +411,7 @@ class RoomController extends Controller
                     Schedule::create($data);
                 }
             }
-            return redirect()->route('index.room')->with('success', 'ruangan telah berhasil diubah');
+            return redirect()->route('index.room.merchant')->with('success', 'ruangan telah berhasil diubah');
         }catch(Exception $e) {
             return response()->json([
                 'error' => true,
