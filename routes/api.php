@@ -38,7 +38,7 @@ Route::get('room/categories', 'RoomCategoryController@index');
 Route::get('room/{id}', 'RoomController@edit');
 
 
-Route::get('room/setups', 'SetupController@index');
+Route::get('setups', 'SetupController@index');
 
 Route::get('facility/categories', 'FacilityCategoryController@index');
 
