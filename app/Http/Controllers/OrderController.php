@@ -163,7 +163,7 @@ class OrderController extends Controller
                     if($package[$j]->durasi>$durasi&&$package[$j]->durasi<$order_detail[$i]['durasi']){
                         // echo $order_detail[$i]['package_id'];
                         $order_detail[$i]['package_id']=$package[$j]->id_package;
-                        $order_detail[$i]['total_package']=$order_detail[$i]['durasi']/$package[$j]->durasi;
+                        $order_detail[$i]['total_package']=round($order_detail[$i]['durasi']/$package[$j]->durasi);
                     }
                 }
             }
@@ -341,7 +341,7 @@ class OrderController extends Controller
                     if($package[$j]->durasi>$durasi&&$package[$j]->durasi<$order_detail[$i]['durasi']){
                         // echo $order_detail[$i]['package_id'];
                         $order_detail[$i]['package_id']=$package[$j]->id_package;
-                        $order_detail[$i]['total_package']=$order_detail[$i]['durasi']/$package[$j]->durasi;
+                        $order_detail[$i]['total_package']=round($order_detail[$i]['durasi']/$package[$j]->durasi);
                     }
                 }
             }
