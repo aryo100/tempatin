@@ -361,7 +361,7 @@ class OrderController extends Controller
                 // break;
                 $o_d[$i]=$order_d;
             }
-            $order->cost_total=$cost;
+            $order['cost_total']=$cost;
             for ($i=0; $i < count($request['form_content']); $i++) {
                 // $form_detail=FormDetail::find($request['form_content'][$i]['form_detail_id']);
                 // $default_value=$form_detail->??
@@ -372,8 +372,8 @@ class OrderController extends Controller
                 ];
                 $f_c[$i]=$form_content;
             }
-            $order->order_detail=$o_d;
-            $order->form_content=$f_c;
+            $order['order_detail']=$o_d;
+            $order['form_content']=$f_c;
             return response()->json([
                 'data' => $order,
                 'error' => false
