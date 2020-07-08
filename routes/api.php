@@ -55,6 +55,7 @@ Route::get('buildings', 'BuildingController@index');
 Route::get('promo', 'PromoController@index');
 
 Route::post('order', 'OrderController@store');
+Route::post('order/preview', 'OrderController@preview');
 Route::get('order/{id}', 'OrderController@show');
 
 // Route::get('schedule', 'ScheduleController@index');
