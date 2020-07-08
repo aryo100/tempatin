@@ -320,7 +320,7 @@ class OrderController extends Controller
                     }
                     $order_detail[$order_no]=[
                         'package_id'=>null,
-                        'schedule_id'=>$schedule[date('w',$start_date)+1]->id,
+                        'schedule_id'=>$schedule[date('w',$start_date)+1]->id_schedule,
                         'date_day'=>$date_day,
                         'jam_buka'=>$jam_buka,
                         'jam_tutup'=>$jam_tutup,
