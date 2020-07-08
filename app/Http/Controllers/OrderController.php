@@ -336,7 +336,6 @@ class OrderController extends Controller
             // echo json_encode($cal_pack);
             $durasi=0;
             for ($i=0; $i < count($order_detail); $i++) {
-                // $order_detail[$i]['order_id']=;
                 for ($j=0; $j < count($package); $j++) {
                     if($package[$j]->durasi>$durasi&&$package[$j]->durasi<$order_detail[$i]['durasi']){
                         // echo $order_detail[$i]['package_id'];
@@ -349,7 +348,6 @@ class OrderController extends Controller
             $cost=0;
             for ($i=0; $i < count($order_detail); $i++) {
                 $order_d=[
-                  'order_id' => $order->id_order,
                   'package_id' => $order_detail[$i]['package_id'],
                   'schedule_id' => $order_detail[$i]['schedule_id'],
                   'jam_mulai' => $order_detail[$i]['jam_buka'],
@@ -368,7 +366,6 @@ class OrderController extends Controller
                 // $default_value=$form_detail->??
                 // $request['form_content'][$i]['value']==""?: $default_value
                 $form_content=[
-                  'order_id' => $order->id_order,
                   'form_detail_id' => $request['form_content'][$i]['form_detail_id'],
                   'value' => $request['form_content'][$i]['value'],
                 ];
