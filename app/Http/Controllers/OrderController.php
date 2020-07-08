@@ -394,7 +394,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order=Order::find($id)->with(['order_detail'])->with('form_content')->get();
+        $order=Order::with(['order_detail'])->with('form_content')->find($id);
         if(request()->segment(1)=='api'){
             if($order){
                 return response()->json([
