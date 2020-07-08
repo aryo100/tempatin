@@ -241,6 +241,7 @@ class OrderController extends Controller
                 'end_date'=>date_format(date_create($request['end_date']),"Y-m-d H:i:s"),
                 'promo_detail_id'=>$request['promo_detail_id'],
                 'status_order'=>$request['status_order'],
+                'cost_total'=>0
             ];
             $room = Room::with('schedule')->with('package')->find($request['room_id']);
             // echo json_encode($room);
