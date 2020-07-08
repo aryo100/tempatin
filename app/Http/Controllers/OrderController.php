@@ -60,6 +60,9 @@ class OrderController extends Controller
             for ($i=0; $i < count($schedule); $i++) {
                 $data[$schedule[$i]->hari]=$schedule[$i];
                 $data[$schedule[$i]->hari]->durasi=round((strtotime($schedule[$i]->jam_tutup)-strtotime($schedule[$i]->jam_buka))/(60 * 60));
+                if($schedul[$schedule[$i]->hari]->durasi==24){
+                    $data[$schedule[$i]->hari]->durasi=0;
+                }
             }
             $schedule=$data;
             // echo json_encode($schedule);
