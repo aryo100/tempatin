@@ -81,15 +81,27 @@ class RegisterController extends Controller
             'role_id' => 1,
             'status_user'=>'approved',
         ]);
-        if($user){
+        if ($this->attemptLogin($request)) {
+            $user = $this->guard()->user();
+            $user->generateToken();
             return response()->json([
-                'data'=> $user,
-                'error' => false
-            ]);
+                    'data'=> $user,
+                    'error' => false
+                ]);
         }else{
             return response()->json([
                 'error' => true
             ]);
         }
+        // if($user){
+        //     return response()->json([
+        //         'data'=> $user,
+        //         'error' => false
+        //     ]);
+        // }else{
+        //     return response()->json([
+        //         'error' => true
+        //     ]);
+        // }
     }
 }
