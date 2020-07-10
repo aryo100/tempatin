@@ -9,6 +9,7 @@ use App\FormContent;
 use App\Package;
 use App\Room;
 use App\PromoDetail;
+use XenditClient\XenditPHPClient as Xendit;
 
 
 class OrderController extends Controller
@@ -20,7 +21,20 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // 
+        $order=Order::with(['order_detail'])->with('form_content')->get();
+        if(request()->segment(1)=='api'){
+            if($order){
+                return response()->json([
+                    'data'=> $order,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }
+        return view('merchant/order', compact('order'));
     }
 
     /**
@@ -215,10 +229,25 @@ class OrderController extends Controller
                 FormContent::create($form_content);
                 $f_c[$i]=$form_content;
             }
+
+            $options['secret_api_key'] = env('SECRET_API_KEY');
+            $xenditPHPClient = new Xendit($options);
+
+            $external_id = 'tempatin_payment_'.$order->id_order;
+            $payer_email = $request['email'];
+            $description = 'Room Payment by Web';
+            $amount = $order->cost_total;
+
+            $response = $xenditPHPClient->createInvoice($external_id, $amount, $payer_email, $description);
+            $order->invoice_id=$response['external_id'];
+            $order->status_order=$response['status'];
+            $order->save();
+
             $order->order_detail=$o_d;
             $order->form_content=$f_c;
             return response()->json([
                 'data' => $order,
+                'xendit'=>$response,
                 'error' => false
             ]);
         }catch(Exception $e) {
@@ -429,7 +458,43 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+        
+        $order->user_id = $request['user_id'];
+        $order->form_id = $request['form_id'];
+        $order->room_id = $request['room_id'];
+        $order->setup_id = $request['setup_id'];
+        $order->start_date = $request['start_date'];
+        $order->end_date = $request['end_date'];
+        $order->promo_detail_id = $request['promo_detail_id'];
+        $order->invoice_id = $request['external_id'];
+        $order->method_pay = $request['payment_method'];
+        $order->status_order = $request['status'];
+        $order->save();
+        // $order_detail = OrderDetail::where('order_id',$id);
+        // $order_detail->delete();
+        // for ($i=0; $i < count($request['order-detail']); $i++) {
+        //     $data=[
+        //       'order_id' => $id,
+        //       'nama_kolom' => $request['order-detail'][$i]['nama_kolom'],
+        //       'tipe_input' => $request['order-detail'][$i]['tipe_input'],
+        //       'input_awal' => json_encode(explode(',', $request['order-detail'][$i]['input_awal'])),
+        //       'status_value' => empty($request['order-detail'][$i]['status_value']) ? 0:1,
+        //     ];
+        //     OrderDetail::create($data);
+        // }
+
+        if(request()->segment(1)=='api'){
+
+            return response()->json([
+                'data'=>$order,
+                'error' => false
+            ]);
+        }else{
+            return response()->json([
+                'error' => true
+            ]);
+        }
     }
 
     /**
