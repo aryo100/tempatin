@@ -496,6 +496,25 @@ class OrderController extends Controller
             ]);
         }
     }
+    public function callback(Request $request)
+    {
+        $order = Order::where('invoice_id',$request['external_id'])->first();
+        $order->method_pay = $request['payment_method'];
+        $order->status_order = $request['status'];
+        $order->save();
+
+        if(request()->segment(1)=='api'){
+
+            return response()->json([
+                'data'=>$order,
+                'error' => false
+            ]);
+        }else{
+            return response()->json([
+                'error' => true
+            ]);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
