@@ -7,9 +7,12 @@ use App\Order;
 use App\OrderDetail;
 use App\FormContent;
 use App\Package;
+use App\PackageDetail;
 use App\Room;
 use App\PromoDetail;
+use Illuminate\Support\Facades\Auth;
 use XenditClient\XenditPHPClient as Xendit;
+use RajaOngkir;
 
 
 class OrderController extends Controller
@@ -21,7 +24,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order=Order::with(['order_detail'])->with('form_content')->get();
+        $order=Order::with(['order_detail'])->with('form_content')->with('room')->orderBy('created_at','desc')->get();
         if(request()->segment(1)=='api'){
             if($order){
                 return response()->json([
@@ -34,7 +37,13 @@ class OrderController extends Controller
                 ]);
             }
         }
-        return view('merchant/order', compact('order'));
+        if(Auth::user()->role_id==0){
+            return view('master/order', compact('order'));
+        }else if(Auth::user()->role_id==1){
+            $order=$order->where('room.user_id',Auth::user()->id_user);
+            // echo json_encode($order);
+            return view('merchant/order', compact('order'));
+        }
     }
 
     /**
@@ -202,15 +211,16 @@ class OrderController extends Controller
             for ($i=0; $i < count($order_detail); $i++) {
                 $order_d=[
                   'order_id' => $order->id_order,
+                  'date_day' => $order_detail[$i]['date_day'],
                   'package_id' => $order_detail[$i]['package_id'],
                   'schedule_id' => $order_detail[$i]['schedule_id'],
                   'jam_mulai' => $order_detail[$i]['jam_buka'],
                   'jam_selesai' => $order_detail[$i]['jam_tutup'],
                   'total_package' => $order_detail[$i]['total_package'],
                 ];
-                $package=Package::where('id_package',$order_detail[$i]['package_id'])->with(['package_detail'])->first();
+                $package=PackageDetail::with('package')->where('package_id',$order_detail[$i]['package_id'])->where('room_id',$order['room_id'])->first();
                 // echo json_encode($package[0]->package_detail[0]->harga);
-                $cost=$cost+floatval($package->package_detail[0]->harga);
+                $cost=$cost+($package->harga*$order_detail[$i]['total_package']);
                 // break;
                 OrderDetail::create($order_d);
                 $o_d[$i]=$order_d;
@@ -247,7 +257,7 @@ class OrderController extends Controller
             $order->form_content=$f_c;
             return response()->json([
                 'data' => $order,
-                'xendit'=>$response,
+                // 'xendit'=>$response,
                 'error' => false
             ]);
         }catch(Exception $e) {
@@ -371,22 +381,31 @@ class OrderController extends Controller
                         // echo $order_detail[$i]['package_id'];
                         $order_detail[$i]['package_id']=$package[$j]->id_package;
                         $order_detail[$i]['total_package']=round($order_detail[$i]['durasi']/$package[$j]->durasi);
+                        $order_detail[$i]['total_test']=$order_detail[$i]['durasi']/$package[$j]->durasi;
                     }
                 }
             }
             // return json_encode($order_detail);
             $cost=0;
             for ($i=0; $i < count($order_detail); $i++) {
+                // $package=Package::whereHas('package_detail', function ($query) use ($order,$order_detail,$i){
+                //         $query->where('package_details.room_id',$order['room_id']);
+                // })
+                // ->with('package_detail')
+                // ->get();
+                // $package=Package::with('package_detail')->where('id_package',$order_detail[$i]['package_id'])->where('package_details.room_id',$order['room_id'])->get();
+                // $room=Room::with('package')->find($order['room_id']);
+                $package=PackageDetail::with('package')->where('package_id',$order_detail[$i]['package_id'])->where('room_id',$order['room_id'])->first();
                 $order_d=[
                   'package_id' => $order_detail[$i]['package_id'],
                   'schedule_id' => $order_detail[$i]['schedule_id'],
                   'jam_mulai' => $order_detail[$i]['jam_buka'],
                   'jam_selesai' => $order_detail[$i]['jam_tutup'],
-                  'total_package' => $order_detail[$i]['total_package'],
+                  'total_package' => $order_detail[$i]['total_package']
                 ];
-                $package=Package::where('id_package',$order_detail[$i]['package_id'])->with(['package_detail'])->first();
                 // echo json_encode($package[0]->package_detail[0]->harga);
-                $cost=$cost+floatval($package->package_detail[0]->harga);
+                // $cost=$cost+(floatval($package->package_detail[0]->harga)*$order_detail[$i]['total_package']);
+                $cost=$cost+($package->harga*$order_detail[$i]['total_package']);
                 // break;
                 $o_d[$i]=$order_d;
             }
@@ -423,7 +442,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order=Order::with(['order_detail'])->with('form_content')->find($id);
+        $order=Order::with(['order_detail'])->with('form_content')->with('room')->with(['setup'])->with('user')->find($id);
+        $package_detail=PackageDetail::with('package')->get();
+        $kota=RajaOngkir::Kota()->find($order->room->building->kota);
         if(request()->segment(1)=='api'){
             if($order){
                 return response()->json([
@@ -435,6 +456,13 @@ class OrderController extends Controller
                     'error' => true
                 ]);
             }
+        }
+
+        if(Auth::user()->role_id==0){
+            return view('master/pre_order', compact('order','package_detail','kota'));
+        }else if(Auth::user()->role_id==1){
+            // echo json_encode($order);
+            return view('merchant/pre_order', compact('order','package_detail','kota'));
         }
     }
 
@@ -460,15 +488,25 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
         
+        if($request['user_id'])
         $order->user_id = $request['user_id'];
+        if($request['form_id'])
         $order->form_id = $request['form_id'];
+        if($request['room_id'])
         $order->room_id = $request['room_id'];
+        if($request['setup_id'])
         $order->setup_id = $request['setup_id'];
+        if($request['start_date'])
         $order->start_date = $request['start_date'];
+        if($request['end_date'])
         $order->end_date = $request['end_date'];
+        if($request['promo_detail_id'])
         $order->promo_detail_id = $request['promo_detail_id'];
+        if($request['external_id'])
         $order->invoice_id = $request['external_id'];
+        if($request['payment_method'])
         $order->method_pay = $request['payment_method'];
+        if($request['status'])
         $order->status_order = $request['status'];
         $order->save();
         // $order_detail = OrderDetail::where('order_id',$id);
@@ -495,7 +533,10 @@ class OrderController extends Controller
                 'error' => true
             ]);
         }
+        
+        return redirect()->back()->with('success', 'order telah berhasil diubah');
     }
+    
     public function callback(Request $request)
     {
         $order = Order::where('invoice_id',$request['external_id'])->first();
@@ -514,6 +555,8 @@ class OrderController extends Controller
                 'error' => true
             ]);
         }
+
+        return redirect()->back()->with('success', 'order telah berhasil diubah');
     }
 
     /**
@@ -532,7 +575,7 @@ class OrderController extends Controller
             $form_content = FormContent::where('order_id',$id);
             $form_content->delete();
 
-            // return redirect()->back()->with('success', 'order telah berhasil dihapus');
+            return redirect()->back()->with('success', 'order telah berhasil dihapus');
         }catch(Exception $e) {
             return response()->json([
                 'error' => true,

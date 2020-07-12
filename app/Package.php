@@ -11,7 +11,7 @@ class Package extends Model
     
     public function package_detail()
     {
-        return $this->hasMany('App\PackageDetail','package_id');
+        return $this->hasMany('App\PackageDetail','package_id','id_package');
         // return $this->belongsToMany('App\Package','App\PackageDetail','package_id','package_id')->withPivot('harga');
     }
 }

@@ -89,7 +89,10 @@ Route::get('merchant/promo/{id}', 'PromoController@destroy')->name('del.promo.me
 Route::post('merchant/promo/{id}', 'PromoController@update')->name('up.promo.merchant')->middleware('role:1');
 
 
-Route::get('merchant/order/{id}', 'OrderController@destroy')->name('del.order.merchant');
+Route::get('merchant/orders', 'OrderController@index')->name('index.order.merchant');
+Route::get('merchant/order/{id}', 'OrderController@show')->name('pre.order.merchant');
+Route::post('merchant/edit/order/{id}', 'OrderController@update')->name('up.order.merchant');
+Route::get('merchant/delete/order/{id}', 'OrderController@destroy')->name('del.order.merchant');
 
 // schedule
 Route::get('merchant/schedule', 'ScheduleController@index')->name('index.schedule')->middleware('role:1');

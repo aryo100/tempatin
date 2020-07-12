@@ -8,4 +8,5 @@ class OrderDetail extends Model
 {
     public $primaryKey  = 'id_order_detail';
     protected $guarded = [];
+
 }
