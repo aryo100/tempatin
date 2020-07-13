@@ -8,92 +8,73 @@
 									<div class="col-sm-7 infobox-container">
 										<div class="infobox infobox-green">
 											<div class="infobox-icon">
-												<i class="ace-icon fa fa-comments"></i>
+												<i class="ace-icon fa fa-building"></i>
 											</div>
 
 											<div class="infobox-data">
-												<span class="infobox-data-number">32</span>
-												<div class="infobox-content">comments + 2 reviews</div>
+												<span class="infobox-data-number">{{$building}}</span>
+												<div class="infobox-content">buildings</div>
 											</div>
-
-											<div class="stat stat-success">8%</div>
 										</div>
 
 										<div class="infobox infobox-blue">
 											<div class="infobox-icon">
-												<i class="ace-icon fa fa-twitter"></i>
+												<i class="ace-icon fa fa-bell"></i>
 											</div>
 
 											<div class="infobox-data">
-												<span class="infobox-data-number">11</span>
-												<div class="infobox-content">new followers</div>
-											</div>
-
-											<div class="badge badge-success">
-												+32%
-												<i class="ace-icon fa fa-arrow-up"></i>
+												<span class="infobox-data-number">{{$order_new}}</span>
+												<div class="infobox-content">new order</div>
 											</div>
 										</div>
 
 										<div class="infobox infobox-pink">
 											<div class="infobox-icon">
-												<i class="ace-icon fa fa-shopping-cart"></i>
+												<i class="ace-icon fa fa-close"></i>
 											</div>
 
 											<div class="infobox-data">
-												<span class="infobox-data-number">8</span>
-												<div class="infobox-content">new orders</div>
+												<span class="infobox-data-number">{{$order_unapp}}</span>
+												<div class="infobox-content">order failed</div>
 											</div>
-											<div class="stat stat-important">4%</div>
 										</div>
 
 										<div class="infobox infobox-red">
 											<div class="infobox-icon">
-												<i class="ace-icon fa fa-flask"></i>
+												<i class="ace-icon fa fa-key"></i>
 											</div>
 
 											<div class="infobox-data">
-												<span class="infobox-data-number">7</span>
-												<div class="infobox-content">experiments</div>
-											</div>
-										</div>
-
-										<div class="infobox infobox-orange2">
-											<div class="infobox-chart">
-												<span class="sparkline" data-values="196,128,202,177,154,94,100,170,224"></span>
-											</div>
-
-											<div class="infobox-data">
-												<span class="infobox-data-number">6,251</span>
-												<div class="infobox-content">pageviews</div>
-											</div>
-
-											<div class="badge badge-success">
-												7.2%
-												<i class="ace-icon fa fa-arrow-up"></i>
+												<span class="infobox-data-number">{{$room}}</span>
+												<div class="infobox-content">rooms</div>
 											</div>
 										</div>
 
 										<div class="infobox infobox-blue2">
-											<div class="infobox-progress">
-												<div class="easy-pie-chart percentage" data-percent="42" data-size="46">
-													<span class="percent">42</span>%
-												</div>
+											<div class="infobox-icon">
+												<i class="ace-icon fa fa-check"></i>
 											</div>
 
 											<div class="infobox-data">
-												<span class="infobox-text">traffic used</span>
-
-												<div class="infobox-content">
-													<span class="bigger-110">~</span>
-													58GB remaining
-												</div>
+												<span class="infobox-data-number">{{$order_app}}</span>
+												<div class="infobox-content">order success</div>
 											</div>
+										</div>
+
+										<div class="infobox infobox-orange2">
+											<div class="infobox-icon">
+												<i class="ace-icon fa fa-cogs"></i>
+											</div>
+
+											<div class="infobox-data">
+												<span class="infobox-data-number">{{$order_pen}}</span>
+												<div class="infobox-content">order on process</div>
+											</div>										
 										</div>
 
 										<div class="space-6"></div>
 
-										<div class="infobox infobox-green infobox-small infobox-dark">
+										<!-- <div class="infobox infobox-green infobox-small infobox-dark">
 											<div class="infobox-progress">
 												<div class="easy-pie-chart percentage" data-percent="61" data-size="39">
 													<span class="percent">61</span>%
@@ -126,10 +107,10 @@
 												<div class="infobox-content">Downloads</div>
 												<div class="infobox-content">1,205</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 
-									<div class="vspace-12-sm"></div>
+									<!-- <div class="vspace-12-sm"></div>
 
 									<div class="col-sm-5">
 										<div class="widget-box">
@@ -209,10 +190,10 @@
 															</span>
 															<h4 class="bigger pull-right">1,050</h4>
 														</div>
-													</div>
-												</div><!-- /.widget-main -->
-											</div><!-- /.widget-body -->
-										</div><!-- /.widget-box -->
-									</div><!-- /.col -->
+													</div>-->
+												<!-- </div>/.widget-main -->
+											<!-- </div>/.widget-body -->
+										<!-- </div>/.widget-box -->
+									<!-- </div>/.col -->
 								</div><!-- /.row -->
 @endsection

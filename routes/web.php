@@ -21,14 +21,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/daftar', 'UserController@store')->name('daftar-admin');
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::get('master/dashboard', function () {
-    return view('master/dashboard');
-});
-Route::get('merchant/dashboard', function () {
-    return view('merchant/dashboard');
-});
+Route::get('master/dashboard', 'HomeController@dashboard_master');
+Route::get('merchant/dashboard','HomeController@dashboard_merchant');
 
 // master
+Route::get('master/data/room', 'RoomController@index')->middleware('role:0');
+Route::post('master/data/room', 'RoomController@store')->name('create.room')->middleware('role:0');
+Route::get('master/data/room/{id}', 'RoomController@destroy')->name('del.room')->middleware('role:0');
+Route::post('master/data/room/{id}', 'RoomController@update')->name('up.room')->middleware('role:0');
+
 Route::get('master/room/category', 'RoomCategoryController@index')->middleware('role:0');
 Route::post('master/room/category', 'RoomCategoryController@store')->name('create.room_category')->middleware('role:0');
 Route::get('master/room/category/{id}', 'RoomCategoryController@destroy')->name('del.room_category')->middleware('role:0');
@@ -68,7 +69,13 @@ Route::post('master/data/promo', 'PromoController@store')->name('create.promo.ma
 Route::get('master/data/promo/{id}', 'PromoController@destroy')->name('del.promo.master')->middleware('role:0');
 Route::post('master/data/promo/{id}', 'PromoController@update')->name('up.promo.master')->middleware('role:0');
 
+Route::get('master/data/orders', 'OrderController@index')->name('index.order.master');
+Route::get('master/data/order/{id}', 'OrderController@show')->name('pre.order.master');
+
 // merchant
+Route::get('merchant/edit', 'UserController@edit')->name('edit.user.merchant')->middleware('role:1');
+Route::post('merchant/edit/{id}', 'UserController@update')->name('up.user.merchant')->middleware('role:1');
+
 Route::get('merchant/room', 'RoomController@index')->name('index.room.merchant')->middleware('role:1');
 Route::get('merchant/room/create', 'RoomController@create')->name('add.room')->middleware('role:1');
 Route::post('merchant/room', 'RoomController@store')->name('create.room')->middleware('role:1');

@@ -35,6 +35,7 @@ class RoomController extends Controller
     {
         $room=Room::with('category')->with('building')->with('package')->with('facility')->with('setup')->get();
         $room_category=RoomCategory::all();
+        $promo=Promo::with('user')->get();
         if(request()->segment(1)=='api'){
             if($room){
                 foreach($room as $i =>$item){
@@ -54,7 +55,7 @@ class RoomController extends Controller
         // $provinsi=RajaOngkir::Provinsi()->all();
         // $kota=RajaOngkir::Kota()->all();
         if(Auth::user()->role_id==0){
-            return view('master/room', compact('room','room_category'));
+            return view('master/room', compact('room','room_category','promo'));
         }else if(Auth::user()->role_id==1){
             $room=$room->where('user_id',Auth::user()->id_user);
             // return $room;

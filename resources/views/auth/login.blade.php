@@ -42,10 +42,9 @@
 					<div class="col-sm-10 col-sm-offset-1">
 						<div class="login-container">
 							<div class="center">
+							<div class="space-20"></div>
 								<h1>
-									<i class="ace-icon fa fa-leaf green"></i>
-									<span class="red">Tempat</span>
-									<span class="white" id="id-text2">In</span>
+								<img src="{{asset('assets/images/gallery/1.png')}}" style="height:32px;" alt="">
 								</h1>
 								<!-- <h4 class="blue" id="id-company-text">&copy; Tempatin</h4> -->
 							</div>
@@ -93,10 +92,10 @@
 													<div class="space"></div>
 
 													<div class="clearfix">
-														<label class="inline">
+														<!-- <label class="inline">
 															<input type="checkbox" class="ace" />
 															<span class="lbl"> Remember Me</span>
-														</label>
+														</label> -->
 
 														<button name="login" type="submit" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="ace-icon fa fa-key"></i>
@@ -108,7 +107,7 @@
 												</fieldset>
 											</form>
 
-											<div class="social-or-login center">
+											<!-- <div class="social-or-login center">
 												<span class="bigger-110">Or Login Using</span>
 											</div>
 
@@ -126,20 +125,20 @@
 												<a class="btn btn-danger">
 													<i class="ace-icon fa fa-google-plus"></i>
 												</a>
-											</div>
+											</div> -->
 										</div><!-- /.widget-main -->
 
 										<div class="toolbar clearfix">
-											<div>
+											<!-- <div>
 												<a href="#" data-target="#forgot-box" class="forgot-password-link">
 													<i class="ace-icon fa fa-arrow-left"></i>
 													Forgot Password
 												</a>
-											</div>
+											</div> -->
 
-											<div>
+											<div class="center col-sm-12" style="width:100%;">
 												<a href="#" data-target="#signup-box" class="user-signup-link">
-													Regist to Admin
+													Daftar Sebagai Admin
 													<i class="ace-icon fa fa-arrow-right"></i>
 												</a>
 											</div>
@@ -181,7 +180,7 @@
 
 										<div class="toolbar center">
 											<a href="#" data-target="#login-box" class="back-to-login-link">
-												Back to login
+												Kembali ke login
 												<i class="ace-icon fa fa-arrow-right"></i>
 											</a>
 										</div>
@@ -230,13 +229,13 @@
 														</span>
 													</label>
 
-													<label class="block">
-														<input type="checkbox" class="ace" />
-														<span class="lbl">
-															I accept the
-															<a href="#">User Agreement</a>
-														</span>
-													</label>
+														<!-- <label class="block">
+															<input type="checkbox" class="ace" />
+															<span class="lbl">
+																I accept the
+																<a href="#">User Agreement</a>
+															</span>
+														</label> -->
 
 													<div class="space-24"></div>
 

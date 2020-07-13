@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -107,9 +108,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $user=User::find(Auth::user()->id_user);
+        return view('merchant/profile', compact('user'));
     }
 
     /**
@@ -128,14 +130,28 @@ class UserController extends Controller
             $foto_profile = $file->move('foto',$file->getClientOriginalName());
             $user->foto_profile = $foto_profile;
         }
-        $user->nama_user = $request->post('nama');
-        $user->email = $request->post('email');
+        if($request->post('nama')){
+            $user->nama_user = $request->post('nama');
+        }
+        if($request->post('no_telp')){
+            $user->no_telp = $request->post('no_telp');
+        }
+        if($request->post('no_rek')){
+            $user->no_rek = $request->post('no_rek');
+        }
+        if($request->post('email')){
+            $user->email = $request->post('email');
+        }
         if($request->post('password')){
             $user->password = Hash::make($request->post('password'));
         }
         if(request()->segment(1)!='api'){
+            if($request->post('role_id')){
             $user->role_id = $request->post('role_id');
+            }
+            if($request->post('status_user')){
             $user->status_user = $request->post('status_user');
+            }
         }
         $user->save();
         if(request()->segment(1)=='api'){
