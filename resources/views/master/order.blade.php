@@ -101,10 +101,15 @@
 															{{$item->invoice_id}}
 														</td>
 														<td>
-															{{json_encode($item->room)}}
+														@if($item->room)
+															{{$item->room->building->nama_bangunan}}
+														@endif
 														</td>
 														<td>
+														
+														@if($item->room)
 															{{$item->room->nama_ruangan}}
+														@endif
 														</td>
 														<td>
 															{{$item->user->nama_user}}
