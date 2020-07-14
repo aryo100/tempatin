@@ -79,7 +79,7 @@
 												</button>
 
 												<i class="ace-icon fa fa-check"></i>
-												<p>{{ \Session::get('success') }}</p>
+												{{ \Session::get('success') }}
 												</div><br/>
 											@endif
 											<form action="{{ route('login') }}" method="post">
