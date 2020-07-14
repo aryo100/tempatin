@@ -248,15 +248,6 @@
 							</li>
 						</ul>
 					</li>
-
-					<li class="{{ Request::is('dashboard/regional') ? 'active open' : ''}}">
-						<a href="gallery.html">
-							<i class="menu-icon fa fa-picture-o"></i>
-							<span class="menu-text"> Gallery </span>
-						</a>
-
-						<b class="arrow"></b>
-					</li>
 				</ul><!-- /.nav-list -->
 				@endif
 
@@ -266,6 +257,14 @@
 						<a href="{{url('merchant/dashboard')}}">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+					<li class="{{ Request::is('merchant/edit') ? 'active open' : ''}}">
+						<a href="{{url('merchant/edit')}}">
+							<i class="menu-icon fa fa-user-o"></i>
+							<span class="menu-text"> Profile </span>
 						</a>
 
 						<b class="arrow"></b>
