@@ -29,7 +29,7 @@
 
 						<div class="page-header">
 							<h1>
-								Data Package
+								Data Jenis Durasi
 							</h1>
 						</div>
 						
