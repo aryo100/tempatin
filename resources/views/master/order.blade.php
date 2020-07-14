@@ -101,7 +101,7 @@
 															{{$item->invoice_id}}
 														</td>
 														<td>
-															{{$item->room->building->nama_bangunan}}
+															{{json_encode($item->room)}}
 														</td>
 														<td>
 															{{$item->room->nama_ruangan}}

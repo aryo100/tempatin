@@ -71,7 +71,7 @@
 
 				<div class="navbar-header pull-left">
 					<a href="index.html" class="navbar-brand">
-						<img src="{{asset('assets/images/gallery/1.png')}}" style="height:32px;" alt="">
+						<img src="{{asset('assets/images/gallery/1.png')}}" style="height:25px;" alt="">
 					</a>
 				</div>
 
