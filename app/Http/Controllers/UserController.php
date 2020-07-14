@@ -70,7 +70,7 @@ class UserController extends Controller
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'role_id' => $request['role_id']?$data['role_id']:1,
-                'status_user'=>$data['status_user']?$data['status_user']:'approved',
+                'status_user'=>$request['status_user']?$data['status_user']:'approved',
             ]);
             return redirect()->back()->with('success', 'user telah berhasil ditambah');
         }catch(Exception $e) {
