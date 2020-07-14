@@ -80,7 +80,7 @@
 
 												<i class="ace-icon fa fa-check"></i>
 												{{ \Session::get('success') }}
-												</div><br/>
+												</div>
 											@endif
 											<form action="{{ route('login') }}" method="post">
                                                 @csrf
