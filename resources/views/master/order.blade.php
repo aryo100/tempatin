@@ -106,16 +106,19 @@
 														@endif
 														</td>
 														<td>
-														
 														@if($item->room)
 															{{$item->room->nama_ruangan}}
 														@endif
 														</td>
 														<td>
+														@if($item->user)
 															{{$item->user->nama_user}}
+														@endif
 														</td>
 														<td>
+														@if($item->user)
 															{{$item->user->email}}
+														@endif
 														</td>
 														<td>
 															{{$item->cost_total}}
