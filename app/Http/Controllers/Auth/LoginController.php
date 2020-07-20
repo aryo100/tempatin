@@ -61,6 +61,7 @@ class LoginController extends Controller
                     $user->save();
                 }
                 Auth::logout();
+                return redirect('login')->with('error', 'Akun tidak disetujui.');
             }
         }else{
             return redirect('login')->with('error', 'Username dan Password tidak sesuai.');
