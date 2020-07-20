@@ -236,7 +236,7 @@
 
                                                                         <div>
 																		<!--  class="chosen-select form-control"  -->
-																			<select id="form-field-user" name="user_id" data-placeholder="Pilih Provinsi.." required>
+																			<select id="form-field-user" class="select2" name="user_id" data-placeholder="Pilih Provinsi.." required>
 																				<option value=""></option>
 																				@foreach($user as $item)
 																					@if($item->role_id==1)	
