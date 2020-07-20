@@ -328,9 +328,9 @@
 			// if (thisform.valid()) {
 				// $('#form-regist .btn-success').removeClass('disabled').prop('disabled', false);
 			// }
-			$('#form-regist input').not([type="submit"]).keyup(function() {
+			$('#form-regist input').not('[type=submit],[type=file]').keyup(function() {
 				var require = true;	
-				$('#form-regist input').not([type="submit"]).each(function () {
+				$('#form-regist input').not('[type=submit],[type=file]').each(function () {
 					// $(this).rules("add", {
 					//     required: true // Or whatever rule you want
 					// }

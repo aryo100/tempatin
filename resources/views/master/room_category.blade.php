@@ -1001,7 +1001,7 @@
                                                                         <label for="form-field-nama">Nama Kategori</label>
 
                                                                         <div>
-                                                                            <input name="nama_kategori" type="text" id="form-field-nama" />
+                                                                            <input name="nama_kategori" type="text" id="form-field-nama" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>

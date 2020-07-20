@@ -165,7 +165,7 @@ class PromoController extends Controller
             $promo = Promo::find($id);
             $promo->delete();
 
-            return redirect()->back()->with('success', 'kategori telah berhasil dihapus');
+            return redirect()->back()->with('success', 'promo telah berhasil dihapus');
         }catch(Exception $e) {
             return response()->json([
                 'error' => true,

@@ -509,18 +509,6 @@ class OrderController extends Controller
         if($request['status'])
         $order->status_order = $request['status'];
         $order->save();
-        // $order_detail = OrderDetail::where('order_id',$id);
-        // $order_detail->delete();
-        // for ($i=0; $i < count($request['order-detail']); $i++) {
-        //     $data=[
-        //       'order_id' => $id,
-        //       'nama_kolom' => $request['order-detail'][$i]['nama_kolom'],
-        //       'tipe_input' => $request['order-detail'][$i]['tipe_input'],
-        //       'input_awal' => json_encode(explode(',', $request['order-detail'][$i]['input_awal'])),
-        //       'status_value' => empty($request['order-detail'][$i]['status_value']) ? 0:1,
-        //     ];
-        //     OrderDetail::create($data);
-        // }
 
         if(request()->segment(1)=='api'){
 

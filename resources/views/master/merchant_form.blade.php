@@ -236,7 +236,7 @@
 
                                                                         <div>
 																		<!--  class="chosen-select form-control"  -->
-																			<select id="form-field-user" name="user_id" data-placeholder="Pilih Provinsi..">
+																			<select id="form-field-user" name="user_id" data-placeholder="Pilih Provinsi.." required>
 																				<option value=""></option>
 																				@foreach($user as $item)
 																					@if($item->role_id==1)	
@@ -254,7 +254,7 @@
 																		<label for="form-field-nama">Nama Formulir</label>
 
 																		<div>
-																			<input name="nama_formulir" type="text" id="form-field-nama-form" />
+																			<input name="nama_formulir" type="text" id="form-field-nama-form" required/>
 																		</div>
 																	</div>
 																</div>
@@ -263,7 +263,7 @@
 																		<label for="form-field-nama">Nama Data</label>
 
 																		<div>
-																			<input name="nama_data" type="text" id="form-field-nama-data" />
+																			<input name="nama_data" type="text" id="form-field-nama-data" required/>
 																		</div>
 																	</div>
 																</div>
@@ -292,9 +292,9 @@
 																		</thead>
 																		<tbody id="form-field-detail" data-repeater-list="form-detail">
 																			<tr data-repeater-item>
-																				<td><input type="text" name="nama_kolom" class="form-control form-filter input-sm"></td>
+																				<td><input type="text" name="nama_kolom" class="form-control form-filter input-sm" required></td>
 																				<td>
-																					<select name="tipe_input" id="form-field-tipe">
+																					<select name="tipe_input" id="form-field-tipe" required>
 																						<option value="text">Text</option>
 																						<option value="textarea">Long Text</option>
 																						<option value="radio">Radio Button</option>

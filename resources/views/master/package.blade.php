@@ -195,7 +195,7 @@
                                                                         <label for="form-field-nama">Nama Jenis Durasi</label>
 
                                                                         <div>
-                                                                            <input name="nama_paket" type="text" id="form-field-nama" />
+                                                                            <input name="nama_paket" type="text" id="form-field-nama" required/>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
@@ -214,7 +214,7 @@
                                                                         <label for="form-field-durasi">Durasi</label>
 
                                                                         <div>
-                                                                            <input name="durasi" class="form-control input-mask-jam" type="text"  id="form-field-durasi" />
+                                                                            <input name="durasi" class="form-control input-mask-jam" type="text"  id="form-field-durasi" required/>
 																		
 																		</div>
                                                                     </div>

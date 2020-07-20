@@ -55,13 +55,8 @@ class LoginController extends Controller
                     return redirect($this->redirectTo);
             }
         }else{
-            // return response()->json([
-            //     'error' => 'Error!!'
-            // ]);
             return redirect('login')->with('error', 'Username dan Password tidak sesuai.');
         }
-    
-        // return $this->sendFailedLoginResponse($request);
     }
 
     public function signin(Request $request)

@@ -233,7 +233,7 @@
 																					<i class="fa fa-calendar bigger-110"></i>
 																				</span>
 
-																				<input class="form-control" type="text" name="tanggal_promo" id="tanggal_promo" id="id-date-range-picker-1" />
+																				<input class="form-control" type="text" name="tanggal_promo" id="tanggal_promo" id="id-date-range-picker-1" required/>
 																			</div>
 																		</div>
                                                                     </div>
@@ -246,7 +246,7 @@
                                                                         <label for="form-field-nama">Nama Promo</label>
 
                                                                         <div>
-                                                                            <input name="nama_promo" type="text" id="form-field-nama" />
+                                                                            <input name="nama_promo" type="text" id="form-field-nama" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -255,7 +255,7 @@
                                                                         <label for="form-field-diskon">Diskon harga total</label>
 
                                                                         <div>
-                                                                            <input name="diskon" placeholder="%" type="text" id="form-field-diskon" />
+                                                                            <input name="diskon" placeholder="%" type="text" id="form-field-diskon" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -282,7 +282,7 @@
                                                                         <label for="form-field-kuota">Kuota</label>
 
                                                                         <div>
-                                                                            <input name="kuota" placeholder="" value="" type="number" id="form-field-kuota" />
+                                                                            <input name="kuota" placeholder="" value="" type="number" id="form-field-kuota" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -291,7 +291,7 @@
                                                                         <label for="form-field-durasi">Minimum Durasi Penyewaan</label>
 
                                                                         <div>
-                                                                            <input name="batas_durasi_per_jam" placeholder="per jam" value="" type="number" id="form-field-durasi" />
+                                                                            <input name="batas_durasi_per_jam" placeholder="per jam" value="" type="number" id="form-field-durasi" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>

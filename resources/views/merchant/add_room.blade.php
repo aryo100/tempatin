@@ -151,19 +151,6 @@
 												});
 											</script>
 											<div class="form-group">
-												<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Pilih Promo </label>
-
-												<div class="col-xs-12 col-sm-9">
-													<select id="promo" name="promo_id" class="select2" onchange="if(this.value=='tambah'){this.value='';location='{{url('merchant/promo')}}';}" data-placeholder="Click to Choose...">
-													<option value="tambah">Tambah Promo</option>
-													<option value="" selected="selected">Pilih Promo</option>
-													@foreach($promo as $item)	
-														<option value="{{$item->id_promo}}">{{$item->kode}}</option>
-													@endforeach
-													</select>
-												</div>
-											</div>
-											<div class="form-group">
 												<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Pilih Bangunan </label>
 
 												<div class="col-xs-12 col-sm-9">
@@ -186,7 +173,7 @@
                                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Ruangan </label>
 
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="nama_ruangan" id="form-field-nama" placeholder="" class="col-xs-10 col-sm-5" />
+                                                    <input type="text" name="nama_ruangan" id="form-field-nama" placeholder="" class="col-xs-10 col-sm-5" required/>
                                                 </div>
                                             </div>
 
@@ -194,7 +181,7 @@
 												<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Kategori Ruangan </label>
 
 												<div class="col-xs-12 col-sm-9">
-													<select multiple="multiple" id="kategori" name="category[]" class="select2" data-placeholder="Click to Choose...">
+													<select multiple="multiple" id="kategori" name="category[]" class="select2" data-placeholder="Click to Choose..." required>
 													@foreach($room_category as $item)	
 														<option value="{{$item->id_room_category}}"> <img src="{{asset($item->gambar_kategori)}}" style="width:169px;"	> {{$item->nama_kategori}}</option>
 													@endforeach
@@ -229,7 +216,7 @@
 												<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Form Penyewaan </label>
 
 												<div class="col-xs-12 col-sm-9">
-													<select multiple="" id="formulir" name="form_id[]" class="select2" data-placeholder="Click to Choose...">
+													<select multiple="" id="formulir" name="form_id[]" class="select2" data-placeholder="Click to Choose..." required>
 													@foreach($form as $item)
 														<option value="{{$item->id_form}}">{{$item->nama_formulir}}</option>
 													@endforeach
@@ -266,7 +253,7 @@
                                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Kapasitas Ruangan </label>
 
                                                 <div class="col-sm-9">
-                                                    <input type="text" id="form-field-kapasitas"  name="kapasitas" placeholder="" class="spinbox-input form-control text-center spinner1" />
+                                                    <input type="text" id="form-field-kapasitas"  name="kapasitas" placeholder="" class="spinbox-input form-control text-center spinner1" required/>
                                                 </div>
                                             </div>
 
@@ -274,7 +261,7 @@
                                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Lantai </label>
 
                                                 <div class="col-sm-9">
-                                                    <input type="text" id="form-field-lantai" name="lantai" placeholder="" class="spinbox-input form-control text-center spinner1" />
+                                                    <input type="text" id="form-field-lantai" name="lantai" placeholder="" class="spinbox-input form-control text-center spinner1" required/>
                                                 </div>
 											</div>
 											
@@ -306,7 +293,7 @@
 																	$('#paket{{$i}}').val('{{$pd->package_id}}');
 																</script>
 																<div class="col-sm-3">
-																	<input name="paket[{{$i}}][harga]" value="{{$pd->harga}}"  type="text" id="form-field-1" placeholder="Rp." />
+																	<input name="paket[{{$i}}][harga]" value="{{$pd->harga}}"  type="text" id="form-field-1" placeholder="Rp." required/>
 																</div>
 																<div class="col-md-1">
 																	<a href="javascript:;" data-repeater-delete class="btn btn-danger mt-repeater-delete">

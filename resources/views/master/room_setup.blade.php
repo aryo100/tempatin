@@ -197,7 +197,7 @@
                                                                         <label for="form-field-nama">Nama Setup</label>
 
                                                                         <div>
-                                                                            <input name="nama_setup" type="text" id="form-field-nama" />
+                                                                            <input name="nama_setup" type="text" id="form-field-nama" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>

@@ -197,7 +197,7 @@
                                                                         <label for="form-field-nama">Nama Fasilitas</label>
 
                                                                         <div>
-                                                                            <input name="nama_fasilitas" type="text" id="form-field-nama" />
+                                                                            <input name="nama_fasilitas" type="text" id="form-field-nama" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>

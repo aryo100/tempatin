@@ -130,7 +130,7 @@
                                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Bangunan </label>
 
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="nama_bangunan" id="form-field-nama" placeholder="" class="col-xs-10 col-sm-5" />
+                                                    <input type="text" name="nama_bangunan" id="form-field-nama" placeholder="" class="col-xs-10 col-sm-5" required/>
                                                 </div>
                                             </div>
 
@@ -182,7 +182,7 @@
 												<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Provinsi </label>
 
 												<div class="col-xs-12 col-sm-4">
-													<select class="chosen-select form-control" id="form-field-provinsi" name="provinsi" data-placeholder="Pilih Provinsi..">
+													<select class="chosen-select form-control" id="form-field-provinsi" name="provinsi" data-placeholder="Pilih Provinsi.." required>
 														<option value=""></option>
 													@foreach($province as $item)	
 														<option value="{{$item['province_id']}}">{{$item['province']}}</option>
@@ -195,7 +195,7 @@
 												<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Kota </label>
 
 												<div class="col-xs-12 col-sm-4">
-													<select class="chosen-select form-control" id="form-field-kota" name="kota" data-placeholder="Pilih Kota..">
+													<select class="chosen-select form-control" id="form-field-kota" name="kota" data-placeholder="Pilih Kota.." required>
 													</select>
 												</div>
 											</div>
@@ -204,7 +204,7 @@
 												<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Alamat </label>
 
 												<div class="col-sm-4">
-													<textarea name="alamat" id="form-field-alamat" class="autosize-transition form-control" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 52px;" cols="40" rows="5"></textarea>
+													<textarea name="alamat" id="form-field-alamat" class="autosize-transition form-control" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 52px;" cols="40" rows="5" required></textarea>
 												</div>
 											</div>
 											

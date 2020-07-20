@@ -202,7 +202,7 @@
 						</ul>
 					</li>
 
-					<li class="{{ Request::is('master/data/user')||Request::is('master/data/orders')||Request::is('master/data/ruangan')||Request::is('master/data/order') ? 'active open' : ''}}">
+					<li class="{{ Request::is('master/data/user')||Request::is('master/data/promo')||Request::is('master/data/room')||Request::is('master/data/orders')||Request::is('master/data/ruangan')||Request::is('master/data/order') ? 'active open' : ''}}">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-database"></i>
 							<span class="menu-text"> Database </span>

@@ -215,17 +215,19 @@ class RoomController extends Controller
                 PackageDetail::create($data);
             }
 
-            foreach($request['hari'] as $i => $hari) {
-                if($hari){
-                    $jam = explode(" - ",$request['jam'][$i]);
-                    $data=[
-                    'room_id' => $room->id_room,
-                    'hari' => $hari,
-                    'jam_buka' => $jam[0],
-                    'jam_tutup' => $jam[1],
-                    'status_jadwal' => 'public',
-                    ];
-                    Schedule::create($data);
+            if($request['hari']){
+                foreach($request['hari'] as $i => $hari) {
+                    if($hari){
+                        $jam = explode(" - ",$request['jam'][$i]);
+                        $data=[
+                        'room_id' => $room->id_room,
+                        'hari' => $hari,
+                        'jam_buka' => $jam[0],
+                        'jam_tutup' => $jam[1],
+                        'status_jadwal' => 'public',
+                        ];
+                        Schedule::create($data);
+                    }
                 }
             }
             
@@ -399,17 +401,19 @@ class RoomController extends Controller
             }
             $schedule = Schedule::where('room_id',$id);
             $schedule->delete();
-            foreach($request['hari'] as $i => $hari) {
-                if($hari){
-                    $jam = explode(" - ",$request['jam'][$i]);
-                    $data=[
-                    'room_id' => $id,
-                    'hari' => $hari,
-                    'jam_buka' => $jam[0],
-                    'jam_tutup' => $jam[1],
-                    'status_jadwal' => 'public',
-                    ];
-                    Schedule::create($data);
+            if($request['hari']){
+                foreach($request['hari'] as $i => $hari) {
+                    if($hari){
+                        $jam = explode(" - ",$request['jam'][$i]);
+                        $data=[
+                        'room_id' => $id,
+                        'hari' => $hari,
+                        'jam_buka' => $jam[0],
+                        'jam_tutup' => $jam[1],
+                        'status_jadwal' => 'public',
+                        ];
+                        Schedule::create($data);
+                    }
                 }
             }
             return redirect()->route('index.room.merchant')->with('success', 'ruangan telah berhasil diubah');
