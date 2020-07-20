@@ -44,6 +44,7 @@
                                 <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}" />
                                 <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}" />
                                 <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-colorpicker.min.css') }}" />
+								<link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}" />
 
                                 @if (\Session::has('success'))
                                     <div class="alert alert-success">
@@ -236,7 +237,7 @@
 
                                                                         <div>
 																		<!--  class="chosen-select form-control"  -->
-																			<select id="form-field-user" class="select2" name="user_id" data-placeholder="Pilih Provinsi.." required>
+																			<select id="form-field-user" class="select2" name="user_id" data-placeholder="Pilih User.." required>
 																				<option value=""></option>
 																				@foreach($user as $item)
 																					@if($item->role_id==1)	
@@ -400,6 +401,8 @@
 		<script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
 		<script src="{{ asset('assets/js/buttons.colVis.min.js') }}"></script>
 		<script src="{{ asset('assets/js/dataTables.select.min.js') }}"></script>
+
+		<script src="{{ asset('assets/js/select2.min.js') }}"></script>
 	
 		<script src="{{asset('assets/global/plugins/jquery-repeater/jquery.repeater.js')}}" type="text/javascript"></script>
 		<script src="{{asset('assets/pages/scripts/form-repeater.js')}}" type="text/javascript"></script>
@@ -1075,6 +1078,14 @@
 					$('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
 				});
 			
+			});
+		</script>
+		<script type="text/javascript">
+			jQuery(function($){
+				
+				$('#form-field-user').css('width','200px').select2({
+					allowClear:true,
+				});
 			});
 		</script>
 @endsection
