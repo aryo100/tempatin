@@ -527,24 +527,29 @@ class OrderController extends Controller
     
     public function callback(Request $request)
     {
-        
-        $order = Order::where('invoice_id',$request['external_id'])->first();
-        $order->method_pay = $request['payment_method'];
-        $order->status_order = $request['status'];
-        $order->save();
+        try{
+            $order = Order::where('invoice_id',$request['external_id'])->first();
+            $order->method_pay = $request['payment_method'];
+            $order->status_order = $request['status'];
+            $order->save();
 
-        if(request()->segment(1)=='api'){
+            if(request()->segment(1)=='api'){
 
+                return response()->json([
+                    'data'=>$order,
+                    'error' => false
+                ]);
+            }else{
+                return response()->json([
+                    'error' => true
+                ]);
+            }
+        }catch(Exception $e) {
             return response()->json([
-                'data'=>$order,
-                'error' => false
-            ]);
-        }else{
-            return response()->json([
-                'error' => true
+                'error' => true,
+                'message' => $e
             ]);
         }
-
         return redirect()->back()->with('success', 'order telah berhasil diubah');
     }
 
