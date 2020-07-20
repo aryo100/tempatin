@@ -42,8 +42,9 @@ class PromoController extends Controller
             $promo = $promo->where('role_id',0);
             return view('master/promo', compact('promo','room','building'));
         }else if(Auth::user()->role_id==1){
-            $room->where('user_id',Auth::user()->id_user);
-            $promo = $promo->where('role_id',1);
+            $room=$room->where('user_id',Auth::user()->id_user);
+            $building=$building->where('user_id',Auth::user()->id_user);
+            $promo = $promo->where('user_id',Auth::user()->id_user);
             return view('merchant/promo', compact('promo','room','building'));
         }
     }
