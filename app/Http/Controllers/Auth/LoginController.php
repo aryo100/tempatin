@@ -47,12 +47,20 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
             $user->generateToken();
-            if(Auth::user()->role_id==0){ //admin master
-                    $this->redirectTo = 'master/dashboard';
-                    return redirect($this->redirectTo);
-            }elseif(Auth::user()->role_id==1){ //admin merchant
-                    $this->redirectTo = 'merchant/dashboard';
-                    return redirect($this->redirectTo);
+            if(Auth::user()->status_user=="approved"){
+                if(Auth::user()->role_id==0){ //admin master
+                        $this->redirectTo = 'master/dashboard';
+                        return redirect($this->redirectTo);
+                }elseif(Auth::user()->role_id==1){ //admin merchant
+                        $this->redirectTo = 'merchant/dashboard';
+                        return redirect($this->redirectTo);
+                }
+            }else{
+                if ($user) {
+                    $user->remember_token = null;
+                    $user->save();
+                }
+                Auth::logout();
             }
         }else{
             return redirect('login')->with('error', 'Username dan Password tidak sesuai.');
