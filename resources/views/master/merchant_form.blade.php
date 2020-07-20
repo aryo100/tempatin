@@ -241,7 +241,7 @@
 																				<option value=""></option>
 																				@foreach($user as $item)
 																					@if($item->role_id==1)	
-																					<option value="{{$item->id_user}}">{{$item->nama_user}}</option>
+																					<option value="{{$item->id_user}}">{{$item->email}}</option>
 																					@endif
 																				@endforeach
 																			</select>
