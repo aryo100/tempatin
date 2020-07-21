@@ -100,6 +100,11 @@
 																			</li>
 
 																			<li>
+																				<i class="ace-icon fa fa-caret-right blue"></i>Nama Bangunan:
+																				<b class="red">{{$order->room->building->nama_bangunan}}</b>
+																			</li>
+
+																			<li>
 																				<i class="ace-icon fa fa-caret-right blue"></i>Kota, Provinsi:
 																				<b class="red">{{$kota['city_name']}}, {{$kota['province']}}</b>
 																			</li>
@@ -147,6 +152,10 @@
 																			<li>
 																				<i class="ace-icon fa fa-caret-right green"></i>Metode Pembayaran:
 																				<b class="red">{{$order->method_pay}}</b>
+																			</li>
+																			<li>
+																				<i class="ace-icon fa fa-caret-right green"></i>Ruangan yang dipesan:
+																				<b class="red">{{$order->room->nama_ruangan}}</b>
 																			</li>
 																		</ul>
 																	</div>
