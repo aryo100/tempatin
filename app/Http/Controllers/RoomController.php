@@ -38,6 +38,7 @@ class RoomController extends Controller
         $promo=Promo::with('user')->get();
         if(request()->segment(1)=='api'){
             if($room){
+                $room=$room->where('status_ruangan','publish');
                 foreach($room as $i =>$item){
                     $room[$i]->form_id=json_decode($item->form_id);
                     $room[$i]->foto_ruangan=json_decode($item->foto_ruangan);
